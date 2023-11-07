@@ -335,7 +335,7 @@ if page == "Sport's Trend":
     st.pyplot(plt)  # Display the Matplotlib figure using st.pyplot
     st.subheader("Topic's Modelling")
     # Create a BERTopic model
-    topic_model = BERTopic(embedding_model=sentence_model, calculate_probabilities=True)
+    topic_model = BERTopic()
     
     # Fit the BERTopic model to the preprocessed 'processed_title' data
     topics, probabilities = topic_model.fit_transform(processed['processed_title'])
