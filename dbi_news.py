@@ -18,6 +18,7 @@ from pathlib import Path
 from sentence_transformers import SentenceTransformer
 import matplotlib.pyplot as plt
 import requests
+import streamlit.components.v1 as components
 
 # Load data (name_df, match_df, headline)
 name_df = pd.read_excel('data/player.xlsx')
@@ -341,7 +342,7 @@ if page == "Sport's Trend":
 if page == "Football Match":
     st.header("Football Match")
     st.table(football)
-
+    components.iframe("https://docs.streamlit.io/en/latest")
 if page == "NBA Match":
     # displaying image function
     def img_to_bytes(img_path):
