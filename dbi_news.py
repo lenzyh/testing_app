@@ -20,8 +20,8 @@ import matplotlib.pyplot as plt
 import requests
 
 # Load data (name_df, match_df, headline)
-#name_df = pd.read_excel(r'\data\player.xlsx')
-#name_df=name_df.sort_values(by='count', ascending=False)
+name_df = pd.read_excel('data\player.xlsx')
+name_df=name_df.sort_values(by='count', ascending=False)
 match_df = pd.read_excel('data/match.xlsx')
 headlinenba = pd.read_csv('data/headline_nba.csv')
 headlinenba = headlinenba.drop_duplicates().reset_index(drop=True)
