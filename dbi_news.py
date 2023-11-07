@@ -29,6 +29,7 @@ headlinenba = headlinenba.drop_duplicates().reset_index(drop=True)
 headline = pd.read_csv('data/headline.csv')
 headline = headline.drop_duplicates().reset_index(drop=True)
 football= pd.read_csv('data/match_data.csv')
+reddit=pd.read_csv('data/Sentiment_Crypto.csv')
 topmatch = match_df['Event'][1]
 match = match_df['Event'][1]
 player=name_df['Entity'][0]
@@ -274,7 +275,6 @@ if page == "Crypto's Trend":
     st.write(df_popular.to_html(escape=False), unsafe_allow_html=True,index=False)
 
     st.header("Crpyto's Summary on Reddit")
-    reddit=pd.read_csv('data\Sentiment_Crypto.csv')
     for index, row in reddit.iterrows():
         crypto_link = f"<a href='https://www.reddit.com/r/{row['Topic'].replace(' ','-')}' target='_blank'>{row['Topic']}</a>"
         reddit.at[index, 'Topic'] = crypto_link
