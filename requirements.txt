@@ -1,0 +1,9 @@
+nba_api
+pandas
+streamlit
+bertopic
+nltk
+spacy
+sklearn
+matplotlib
+wordcloud
