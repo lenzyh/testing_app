@@ -334,7 +334,8 @@ if page == "Sport's Trend":
 
     st.pyplot(plt)  # Display the Matplotlib figure using st.pyplot
     st.subheader("Topic's Modelling")
-    components.iframe("https://lenzyh.github.io/testing_app/data/sport_topic.html")
+    components.iframe("https://lenzyh.github.io/testing_app/data/sport_topic.html",width=1000,height=400)
+    components.iframe("https://lenzyh.github.io/testing_app/data/Intertopic.html",width=1000,height=400)
     #topic_image = Image.open('data\sport_topics.png')  # Update the file path to your image
     #st.components.v1.html(open('data\World_Cup_Topics.html").read(), width=800, height=600)
     # with open("data\sport_topic.html",encoding="utf-8") as html_file:
