@@ -335,9 +335,9 @@ if page == "Sport's Trend":
     st.subheader("Topic's Modelling")
     #topic_image = Image.open('data\sport_topics.png')  # Update the file path to your image
     #st.components.v1.html(open('data\World_Cup_Topics.html").read(), width=800, height=600)
-    with open(r'data\sport_topic.html","r",encoding="utf-8") as html_file:
+    with open("data\sport_topic.html",encoding="utf-8") as html_file:
         st.components.v1.html(html_file.read(), width=1000, height=400)
-    with open(r'data\intertopic.html","r",encoding="utf-8") as html_file2:
+    with open(r"data\intertopic.html","r",encoding="utf-8") as html_file2:
         st.components.v1.html(html_file2.read(), width=1000, height=800)
 if page == "Football Match":
     st.header("Football Match")
