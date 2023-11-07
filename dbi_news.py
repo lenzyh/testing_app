@@ -30,6 +30,8 @@ headline = pd.read_csv('data/headline.csv')
 headline = headline.drop_duplicates().reset_index(drop=True)
 football= pd.read_csv('data/match_data.csv')
 reddit=pd.read_csv('data/Sentiment_Crypto.csv')
+player_image = Image.open('data\player.jpg')
+match_image = Image.open('data\match.jpg')  # Update the file path to your image
 topmatch = match_df['Event'][1]
 match = match_df['Event'][1]
 player=name_df['Entity'][0]
@@ -293,7 +295,6 @@ if page == "Sport's Trend":
     player_name = f"[{name_df['Entity'][0]}](https://en.wikipedia.org/wiki/{player.replace(' ', '_')})"
     st.markdown(player_name)
 
-    player_image = Image.open('data\player.jpg')  # Update the file path to your image
     st.image(player_image)
 
     st.header("Event Of The Day")
@@ -301,8 +302,6 @@ if page == "Sport's Trend":
     # Render match name as clickable Markdown text
     match_name = f"[{match_df['Event'][1]}](https://en.wikipedia.org/wiki/{match.replace(' ', '_')})"
     st.markdown(match_name)
-
-    match_image = Image.open('data\match.jpg')  # Update the file path to your image
     st.image(match_image)
 
     # Generate a Word Cloud
