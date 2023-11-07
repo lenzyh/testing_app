@@ -30,7 +30,7 @@ headline = pd.read_csv('data/headline.csv')
 headline = headline.drop_duplicates().reset_index(drop=True)
 football= pd.read_csv('data/match_data.csv')
 reddit=pd.read_csv('data/Sentiment_Crypto.csv')
-player_image = Image.open('data\player.jpg')
+player_image = "https://raw.githubusercontent.com/lenzyh/testing_app/main/data/player.jpg"
 match_image = Image.open('data\match.jpg')  # Update the file path to your image
 topmatch = match_df['Event'][1]
 match = match_df['Event'][1]
