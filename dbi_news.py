@@ -346,8 +346,8 @@ if page == "Sport's Trend":
 if page == "Football Match":
     st.header("Football Match")
     tournaments = football["Tournament"].unique()
-    selected_tournament = st.selectbox("Select a Tournament", tournaments)
-    selected_tournaments = st.multiselect("Select Tournaments", tournaments)
+    selected_tournament = st.selectbox("Select a Tournament (Single Selection)", tournaments)
+    selected_tournaments = st.multiselect("Select Tournaments (Multiple Selections)", tournaments)
     # Filter the DataFrame based on the selected tournament(s)
     if selected_tournament:
         filtered_df = football[football["Tournament"] == selected_tournament]
@@ -357,7 +357,7 @@ if page == "Football Match":
         filtered_df = football  # No selection, show all data
 
     # Display the filtered table
-    st.table(filtered_df)
+    st.table(filtered_df.reset_index())
 
 if page == "NBA Match":
     # displaying image function
