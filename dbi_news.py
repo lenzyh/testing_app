@@ -20,14 +20,14 @@ import matplotlib.pyplot as plt
 import requests
 
 # Load data (name_df, match_df, headline)
-name_df = pd.read_excel('data\player.xlsx')
+name_df = pd.read_excel('data/player.xlsx')
 name_df=name_df.sort_values(by='count', ascending=False)
-match_df = pd.read_excel('data\match.xlsx')
-headlinenba = pd.read_csv('data\headline_nba.csv')
+match_df = pd.read_excel('data/match.xlsx')
+headlinenba = pd.read_csv('data/headline_nba.csv')
 headlinenba = headlinenba.drop_duplicates().reset_index(drop=True)
-headline = pd.read_csv('data\headline.csv')
+headline = pd.read_csv('data/headline.csv')
 headline = headline.drop_duplicates().reset_index(drop=True)
-football= pd.read_csv('data\match_data.csv')
+football= pd.read_csv('data/match_data.csv')
 topmatch = match_df['Event'][1]
 match = match_df['Event'][1]
 player=name_df['Entity'][0]
