@@ -338,7 +338,7 @@ if page == "Sport's Trend":
     topic_model = BERTopic(embedding_model=sentence_model, calculate_probabilities=True)
     
     # Fit the BERTopic model to the preprocessed 'processed_title' data
-    topics, probabilities = topic_model.fit_transform(df['processed_title'])
+    topics, probabilities = topic_model.fit_transform(processed['processed_title'])
     fig = topic_model.visualize_barchart(top_n_topics=10)
     fig
     # Get the most frequent words for each topic
