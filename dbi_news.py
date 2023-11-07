@@ -334,15 +334,7 @@ if page == "Sport's Trend":
 
     st.pyplot(plt)  # Display the Matplotlib figure using st.pyplot
     st.subheader("Topic's Modelling")
-    # Create a BERTopic model
-    topic_model = BERTopic()
-    
-    # Fit the BERTopic model to the preprocessed 'processed_title' data
-    topics, probabilities = topic_model.fit_transform(processed['processed_title'])
-    fig = topic_model.visualize_barchart(top_n_topics=10)
-    fig
-    # Get the most frequent words for each topic
-    topic_words = topic_model.get_topics()
+    components.iframe(https://lenzyh.github.io/testing_app/data/sport_topic.html)
     #topic_image = Image.open('data\sport_topics.png')  # Update the file path to your image
     #st.components.v1.html(open('data\World_Cup_Topics.html").read(), width=800, height=600)
     # with open("data\sport_topic.html",encoding="utf-8") as html_file:
