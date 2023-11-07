@@ -49,7 +49,7 @@ st.sidebar.write(f"Today's Date: {date_today}")
 page = st.sidebar.selectbox("Go to", ["Industry's Trend","Crypto's Trend","Sport's Trend", "Football Match", "NBA Match"])
 if page == "Industry's Trend":
 # Create a sidebar
-    industry_headline=pd.read_csv('data\Online_Gambling_News.csv')
+    industry_headline=pd.read_csv('data/Online_Gambling_News.csv')
     st.sidebar.title("Headlines")
 
     # Create a dropdown for selecting a category
