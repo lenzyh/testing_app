@@ -333,8 +333,8 @@ if page == "Sport's Trend":
 
     st.pyplot(plt)  # Display the Matplotlib figure using st.pyplot
     st.subheader("Topic's Modelling")
-        components.html(
-        """
+    components.html(
+    """
     <html>
     <head><meta charset="utf-8" /></head>
     <body>
