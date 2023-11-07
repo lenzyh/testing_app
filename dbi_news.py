@@ -20,7 +20,13 @@ import matplotlib.pyplot as plt
 import requests
 
 # Load data (name_df, match_df, headline)
-name_df = pd.read_excel('data/player.xlsx')
+import os
+file_path = 'data/player.xlsx'
+if os.path.isfile(file_path):
+    name_df = pd.read_excel(file_path)
+else:
+    st.error(f"File not found: {file_path}")
+#name_df = pd.read_excel('data/player.xlsx')
 name_df=name_df.sort_values(by='count', ascending=False)
 match_df = pd.read_excel('data/match.xlsx')
 headlinenba = pd.read_csv('data/headline_nba.csv')
