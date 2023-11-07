@@ -31,7 +31,7 @@ headline = headline.drop_duplicates().reset_index(drop=True)
 football= pd.read_csv('data/match_data.csv')
 reddit=pd.read_csv('data/Sentiment_Crypto.csv')
 player_image = "https://raw.githubusercontent.com/lenzyh/testing_app/main/data/player.jpg"
-match_image = Image.open('data\match.jpg')  # Update the file path to your image
+match_image = "https://raw.githubusercontent.com/lenzyh/testing_app/main/data/match.jpg"
 topmatch = match_df['Event'][1]
 match = match_df['Event'][1]
 player=name_df['Entity'][0]
