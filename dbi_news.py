@@ -357,7 +357,7 @@ if page == "Football Match":
         filtered_df = football  # No selection, show all data
 
     # Display the filtered table
-    st.table(filtered_df.reset_index())
+    st.table(filtered_df.reset_index(drop=True, inplace=True))
 
 if page == "NBA Match":
     # displaying image function
