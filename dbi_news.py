@@ -20,14 +20,14 @@ import matplotlib.pyplot as plt
 import requests
 
 # Load data (name_df, match_df, headline)
-name_df = pd.read_excel(r'C:\Users\YeHernYeow\Blacksire Group\Q4 2023 Web Scrape Assessment - General\Scraping\googlenews\googlenews\player.xlsx')
+name_df = pd.read_excel('data\player.xlsx')
 name_df=name_df.sort_values(by='count', ascending=False)
-match_df = pd.read_excel(r'C:\Users\YeHernYeow\Blacksire Group\Q4 2023 Web Scrape Assessment - General\Scraping\googlenews\googlenews\match.xlsx')
-headlinenba = pd.read_csv(r'C:\Users\YeHernYeow\Blacksire Group\Q4 2023 Web Scrape Assessment - General\Scraping\sportsheadline\headline_nba.csv')
+match_df = pd.read_excel('data\match.xlsx')
+headlinenba = pd.read_csv('data\headline_nba.csv')
 headlinenba = headlinenba.drop_duplicates().reset_index(drop=True)
-headline = pd.read_csv(r'C:\Users\YeHernYeow\Blacksire Group\Q4 2023 Web Scrape Assessment - General\Scraping\sportsheadline\headline.csv')
+headline = pd.read_csv('data\headline.csv')
 headline = headline.drop_duplicates().reset_index(drop=True)
-football= pd.read_csv(r'C:\Users\YeHernYeow\Desktop\Scraping\googlenews\match_data.csv')
+football= pd.read_csv('data\match_data.csv')
 topmatch = match_df['Event'][1]
 match = match_df['Event'][1]
 player=name_df['Entity'][0]
@@ -49,7 +49,7 @@ st.sidebar.write(f"Today's Date: {date_today}")
 page = st.sidebar.selectbox("Go to", ["Industry's Trend","Crypto's Trend","Sport's Trend", "Football Match", "NBA Match"])
 if page == "Industry's Trend":
 # Create a sidebar
-    industry_headline=pd.read_csv(r'C:\Users\YeHernYeow\Blacksire Group\Q4 2023 Web Scrape Assessment - General\Scraping\Gambling_Industry_News.csv')
+    industry_headline=pd.read_csv('data\Gambling_Industry_News.csv')
     st.sidebar.title("Headlines")
 
     # Create a dropdown for selecting a category
@@ -274,7 +274,7 @@ if page == "Crypto's Trend":
     st.write(df_popular.to_html(escape=False), unsafe_allow_html=True,index=False)
 
     st.header("Crpyto's Summary on Reddit")
-    reddit=pd.read_csv('Sentiment_Crypto.csv')
+    reddit=pd.read_csv('data\Sentiment_Crypto.csv')
     for index, row in reddit.iterrows():
         crypto_link = f"<a href='https://www.reddit.com/r/{row['Topic'].replace(' ','-')}' target='_blank'>{row['Topic']}</a>"
         reddit.at[index, 'Topic'] = crypto_link
@@ -293,7 +293,7 @@ if page == "Sport's Trend":
     player_name = f"[{name_df['Entity'][0]}](https://en.wikipedia.org/wiki/{player.replace(' ', '_')})"
     st.markdown(player_name)
 
-    player_image = Image.open(r'C:\Users\YeHernYeow\Blacksire Group\Q4 2023 Web Scrape Assessment - General\Scraping\googlenews\googlenews\player.jpg')  # Update the file path to your image
+    player_image = Image.open('data\player.jpg')  # Update the file path to your image
     st.image(player_image)
 
     st.header("Event Of The Day")
@@ -302,7 +302,7 @@ if page == "Sport's Trend":
     match_name = f"[{match_df['Event'][1]}](https://en.wikipedia.org/wiki/{match.replace(' ', '_')})"
     st.markdown(match_name)
 
-    match_image = Image.open(r'C:\Users\YeHernYeow\Blacksire Group\Q4 2023 Web Scrape Assessment - General\Scraping\googlenews\googlenews\match.jpg')  # Update the file path to your image
+    match_image = Image.open('data\match.jpg')  # Update the file path to your image
     st.image(match_image)
 
     # Generate a Word Cloud
@@ -333,11 +333,11 @@ if page == "Sport's Trend":
 
     st.pyplot(plt)  # Display the Matplotlib figure using st.pyplot
     st.subheader("Topic's Modelling")
-    #topic_image = Image.open(r'C:\Users\YeHernYeow\Blacksire Group\Q4 2023 Web Scrape Assessment - General\Scraping\googlenews\googlenews\sport_topics.png')  # Update the file path to your image
-    #st.components.v1.html(open(r"C:\Users\YeHernYeow\Blacksire Group\Q4 2023 Web Scrape Assessment - General\Scraping\googlenews\googlenews\World_Cup_Topics.html").read(), width=800, height=600)
-    with open(r"C:\Users\YeHernYeow\Blacksire Group\Q4 2023 Web Scrape Assessment - General\Scraping\googlenews\googlenews\sport_topic.html", "r", encoding="utf-8") as html_file:
+    #topic_image = Image.open('data\sport_topics.png')  # Update the file path to your image
+    #st.components.v1.html(open('data\World_Cup_Topics.html").read(), width=800, height=600)
+    with open('data\sport_topic.html", "r", encoding="utf-8") as html_file:
         st.components.v1.html(html_file.read(), width=1000, height=400)
-    with open(r"C:\Users\YeHernYeow\Blacksire Group\Q4 2023 Web Scrape Assessment - General\Scraping\googlenews\googlenews\intertopic.html", "r", encoding="utf-8") as html_file2:
+    with open('data\intertopic.html", "r", encoding="utf-8") as html_file2:
         st.components.v1.html(html_file2.read(), width=1000, height=800)
 if page == "Football Match":
     st.header("Football Match")
