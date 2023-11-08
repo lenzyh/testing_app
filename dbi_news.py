@@ -398,7 +398,7 @@ if page == "NBA Match":
         href_links = [a['href'] for a in ppg_players]
     player_name = f"[{player_names[1]}](https://www.basketball-reference.com{href_links[1]})"
     st.markdown(player_name, unsafe_allow_html=True)
-    img_link=link.split('.')[0].split('/')[-1]
+    img_link=href_links[1].split('.')[0].split('/')[-1]
     st.image(f'https://www.basketball-reference.com/req/202106291/images/headshots/{img_link}.jpg')
 
     # Create hyperlinks for the Home Team and Away Team columns
