@@ -403,7 +403,7 @@ if page == "NBA Match":
     st.markdown(player_name, unsafe_allow_html=True)
     img_link=href_links[1].split('.')[0].split('/')[-1]
     st.image(f'https://www.basketball-reference.com/req/202106291/images/headshots/{img_link}.jpg')
-    st.wrtie(f"{player_names} has been averaging {parentheses_text} PPG for this season :fire:")
+    st.write(f"{player_names} has been averaging {parentheses_text} PPG for this season :fire:")
     # Create hyperlinks for the Home Team and Away Team columns
     st.header(f"Schedule")
     year=(date.today()+ timedelta(days=365)).strftime('%Y')
