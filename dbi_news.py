@@ -399,11 +399,11 @@ if page == "NBA Match":
         # Extract the text from the <a> tags
         player_names = [a.get_text() for a in ppg_players]
         href_links = [a['href'] for a in ppg_players]
-    player_name = f"[{player_names[1]}](https://www.basketball-reference.com{href_links[1]})"
+    player_name = f"[{player_names[0]}](https://www.basketball-reference.com{href_links[0]})"
     st.markdown(player_name, unsafe_allow_html=True)
-    img_link=href_links[1].split('.')[0].split('/')[-1]
+    img_link=href_links[0].split('.')[0].split('/')[-1]
     st.image(f'https://www.basketball-reference.com/req/202106291/images/headshots/{img_link}.jpg')
-    st.write(f"{st.markdown(player_name, unsafe_allow_html=True)} has been averaging {parentheses_text} PPG for this season :fire:")
+    st.write(f"{player_names[0]} has been averaging {parentheses_text} PPG for this season :fire:")
     # Create hyperlinks for the Home Team and Away Team columns
     st.header(f"Schedule")
     year=(date.today()+ timedelta(days=365)).strftime('%Y')
