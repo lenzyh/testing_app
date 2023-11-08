@@ -66,6 +66,20 @@ if page == "Industry's Trend":
     # Display the filtered titles in the sidebar
     for index, Title in enumerate(filtered_category['Title'], start=1):
         st.sidebar.write(f"{index}. {Title}")
+    st.header('Topic Modelling')
+    selection = st.selectbox("Select the type:", ["Complaint", "Bonus"])
+    if selection == "Complaint":
+        st.subheader("Complaints' Trend")
+        components.iframe("https://lenzyh.github.io/testing_app/data/2_ComplaintTrends_TopicWordScore.html",width=1000,height=400)
+        components.iframe("https://lenzyh.github.io/testing_app/data/3_ComplaintTrends_TopicGrouping.html",width=1000,height=400)
+        components.iframe("https://lenzyh.github.io/testing_app/data/4_ComplaintTrends_InterDisMap.html",width=1000,height=800)
+        components.iframe("https://lenzyh.github.io/testing_app/data/5_ComplaintTrends_DetailedDocMap.html",width=1000,height=800)
+    if selection == "Bonus":
+        st.subheader("Bonus' Trend")
+        components.iframe("https://lenzyh.github.io/testing_app/data/2_BonusTrends_TopicWordScore.html",width=1000,height=400)
+        components.iframe("https://lenzyh.github.io/testing_app/data/3_BonusTrends_TopicGrouping.html",width=1000,height=400)
+        components.iframe("https://lenzyh.github.io/testing_app/data/4_BonusTrends_InterDisMap.html",width=1000,height=800)
+        components.iframe("https://lenzyh.github.io/testing_app/data/5_BonusTrends_DetailedDocMap.html",width=1000,height=800)
 if page == "Crypto's Trend":
     # Sidebar - Headlines
     st.sidebar.title("Headlines")
@@ -382,7 +396,7 @@ if page == "NBA Match":
         # Extract the text from the <a> tags
         player_names = [a.get_text() for a in ppg_players]
         href_links = [a['href'] for a in ppg_players]
-    player_name = f"[{player_names[1]}](https://www.basketball-reference.com{href_links[1})"
+    player_name = f"[{player_names[1]}](https://www.basketball-reference.com{href_links[1]})"
     st.markdown(player_name, unsafe_allow_html=True)
     img_link=link.split('.')[0].split('/')[-1]
     st.image(f'https://www.basketball-reference.com/req/202106291/images/headshots/{img_link}.jpg')
