@@ -21,9 +21,9 @@ import requests
 import streamlit.components.v1 as components
 
 # Load data (name_df, match_df, headline)
-name_df = pd.read_excel('data/player.xlsx')
+name_df = pd.read_excel('data/player.csv')
 name_df=name_df.sort_values(by='count', ascending=False)
-match_df = pd.read_excel('data/match.xlsx')
+match_df = pd.read_excel('data/match.csv')
 industry_headline=pd.read_csv('data/Online_Gambling_News.csv')
 headlinenba = pd.read_csv('data/headline_nba.csv')
 headlinenba = headlinenba.drop_duplicates().reset_index(drop=True)
