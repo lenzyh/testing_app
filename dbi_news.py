@@ -393,6 +393,9 @@ if page == "NBA Match":
         # Extract the following <a> tags within the same <p> tag
         ppg_players = ppg_leader_tag.find_next('p').find_all('a')
         ppg_links = ppg_leader_tag.find_next('a').find_all('href')
+        text_inside_parentheses = ppg_leader_tag.find_next('p').get_text()
+        # Extract the text within parentheses
+        parentheses_text = text_inside_parentheses[text_inside_parentheses.find("(")+1:text_inside_parentheses.find(")")]
         # Extract the text from the <a> tags
         player_names = [a.get_text() for a in ppg_players]
         href_links = [a['href'] for a in ppg_players]
@@ -400,7 +403,7 @@ if page == "NBA Match":
     st.markdown(player_name, unsafe_allow_html=True)
     img_link=href_links[1].split('.')[0].split('/')[-1]
     st.image(f'https://www.basketball-reference.com/req/202106291/images/headshots/{img_link}.jpg')
-
+    st.wrtie(f"{st.markdown(player_name, unsafe_allow_html=True)} has been averaging {parentheses_text} PPG for this season :fire:"
     # Create hyperlinks for the Home Team and Away Team columns
     st.header(f"Schedule")
     year=(date.today()+ timedelta(days=365)).strftime('%Y')
