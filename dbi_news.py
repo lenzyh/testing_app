@@ -366,7 +366,26 @@ if page == "NBA Match":
         encoded = base64.b64encode(img_bytes).decode()
         return encoded
     st.header("NBA Match :basketball:")
-    
+    st.header('Top Scorer')
+    url = 'https://www.basketball-reference.com/leagues/NBA_2024_totals.html'
+
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    # Find the <strong> tag containing "PPG Leader"
+    ppg_leader_tag = soup.find('div', class_="prevnext")
+
+    if ppg_leader_tag:
+        # Extract the following <a> tags within the same <p> tag
+        ppg_players = ppg_leader_tag.find_next('p').find_all('a')
+        ppg_links = ppg_leader_tag.find_next('a').find_all('href')
+        # Extract the text from the <a> tags
+        player_names = [a.get_text() for a in ppg_players]
+        href_links = [a['href'] for a in ppg_players]
+    player_name = f"[{name}](https://www.basketball-reference.com/{link})"
+    img_link=link.split('.')[0].split('/')[-1]
+    st.image(f'https://www.basketball-reference.com/req/202106291/images/headshots/{img_link}.jpg')
+    st.markdown(player_name)
     # Create hyperlinks for the Home Team and Away Team columns
     st.header(f"Schedule")
     year=(date.today()+ timedelta(days=365)).strftime('%Y')
