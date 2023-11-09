@@ -52,7 +52,7 @@ date_today = date.today().strftime("%Y-%m-%d")
 st.sidebar.write(f"Today's Date: {date_today}")
 
 # Add a submenu for navigation
-page = st.sidebar.selectbox("Go to", ["Industry's Trend","Crypto's Trend","Sport's Trend", "Football Match", "NBA Match"])
+page = st.sidebar.selectbox("Go to", ["Industry's Trend","Crypto's Trend","Sport's Trend", "NBA Match", "Football Match","Badminton's Match"])
 if page == "Industry's Trend":
 # Create a sidebar
     st.sidebar.title("Headlines")
@@ -235,23 +235,7 @@ if page == "Crypto's Trend":
         'URL':href_links
     }
     df = pd.DataFrame(data)
-
-    # # Find all img elements with either of the specified classes
-    # img_elements = soup.find_all('img', class_=['sc-66133f36-0 flXWZT', 'sc-66133f36-0 flXWZT isUp'])
-
-    # # Initialize a list to store image URLs
-    # image_urls = []
-
-    # # Extract the URLs from the src attribute of each img element
-    # for img_element in img_elements:
-    #     if 'src' in img_element.attrs:
-    #         image_url = img_element['src']
-    #         image_urls.append(image_url)
-
-    # df['Last 7 Days Trend'] = image_urls
-    # # Create DataFrame
-    # df = pd.DataFrame(data)
-    # Create hyperlinks for the Home Team and Away Team columns
+    
     for index, row in df.iterrows():
         crypto_link = f"<a href='https://crypto.com{row['URL']}' target='_blank'>{row['Name']}</a>"
         df.at[index, 'Name'] = crypto_link
@@ -269,6 +253,7 @@ if page == "Crypto's Trend":
     crypto_elements = soup_popular.find_all('span', class_='chakra-text css-eb93p1')
     td_elements = soup_popular.find_all('p', class_='chakra-text css-13hqrwd')
     change_elements = soup_popular.find_all('p', class_=['chakra-text css-110rl6j', 'chakra-text css-150md6i'])
+    url_elements = soup.find_all('a', class_=['chakra-link css-tzmkfm'])
     # Initialize lists to store the extracted text
     names = [element.text for element in crypto_elements]
     td = [element.text for element in td_elements]
@@ -574,3 +559,4 @@ if page == "NBA Match":
 
     if __name__ == "__main__":
         main()
+if page == "Badminton's Match":
