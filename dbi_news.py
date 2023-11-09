@@ -559,4 +559,4 @@ if page == "NBA Match":
 
     if __name__ == "__main__":
         main()
-if page == "Badminton's Match":
+#if page == "Badminton's Match":
