@@ -79,7 +79,7 @@ if page == "Top Online Casinos":
     components.iframe("https://lenzyh.github.io/testing_app/data/2_TopCasino_TopicWordScore.html",width=1000,height=700)
     components.iframe("https://lenzyh.github.io/testing_app/data/3_TopCasino_TopicGrouping.html",width=1000,height=400)
     components.iframe("https://lenzyh.github.io/testing_app/data/4_TopCasino_InterDisMap.html",width=1000,height=700)
-    components.iframe("https://lenzyh.github.io/testing_app/data/5_TopCasino_DetailedDocMap.html",width=1000,height=700)
+    components.iframe("https://lenzyh.github.io/testing_app/data/5_TopCasino_DetailedDocMap.html",width=1400,height=700)
 
 if page == "Industry's Trend":
 # Create a sidebar
@@ -98,16 +98,20 @@ if page == "Industry's Trend":
     selection = st.selectbox("Select the type:", ["Complaint", "Bonus"])
     if selection == "Complaint":
         st.subheader("Complaints' Trend")
-        components.iframe("https://lenzyh.github.io/testing_app/data/2_ComplaintTrends_TopicWordScore.html",width=1000,height=800)
-        components.iframe("https://lenzyh.github.io/testing_app/data/3_ComplaintTrends_TopicGrouping.html",width=1000,height=800)
-        components.iframe("https://lenzyh.github.io/testing_app/data/4_ComplaintTrends_InterDisMap.html",width=1000,height=800)
-        components.iframe("https://lenzyh.github.io/testing_app/data/5_ComplaintTrends_DetailedDocMap.html",width=1400,height=800)
+        st.markdown(f'<img src="https://lenzyh.github.io/testing_app/data/1_BonusTrends_TopicWordClouds.png" width="{1000}" height="{500}">', unsafe_allow_html=True)
+        
+        components.iframe("https://lenzyh.github.io/testing_app/data/2_ComplaintTrends_TopicWordScore.html",width=1000,height=700)
+        components.iframe("https://lenzyh.github.io/testing_app/data/3_ComplaintTrends_TopicGrouping.html",width=1000,height=400)
+        components.iframe("https://lenzyh.github.io/testing_app/data/4_ComplaintTrends_InterDisMap.html",width=1000,height=700)
+        components.iframe("https://lenzyh.github.io/testing_app/data/5_ComplaintTrends_DetailedDocMap.html",width=1400,height=700)
     if selection == "Bonus":
         st.subheader("Bonus' Trend")
-        components.iframe("https://lenzyh.github.io/testing_app/data/2_BonusTrends_TopicWordScore.html",width=1000,height=800)
-        components.iframe("https://lenzyh.github.io/testing_app/data/3_BonusTrends_TopicGrouping.html",width=1000,height=800)
-        components.iframe("https://lenzyh.github.io/testing_app/data/4_BonusTrends_InterDisMap.html",width=1000,height=800)
-        components.iframe("https://lenzyh.github.io/testing_app/data/5_BonusTrends_DetailedDocMap.html",width=1400,height=800)
+        st.markdown(f'<img src="https://lenzyh.github.io/testing_app/data/1_ComplaintTrends_TopicWordClouds.png" width="{1000}" height="{500}">', unsafe_allow_html=True)
+        
+        components.iframe("https://lenzyh.github.io/testing_app/data/2_BonusTrends_TopicWordScore.html",width=1000,height=700)
+        components.iframe("https://lenzyh.github.io/testing_app/data/3_BonusTrends_TopicGrouping.html",width=1000,height=400)
+        components.iframe("https://lenzyh.github.io/testing_app/data/4_BonusTrends_InterDisMap.html",width=1000,height=700)
+        components.iframe("https://lenzyh.github.io/testing_app/data/5_BonusTrends_DetailedDocMap.html",width=1400,height=700)
 if page == "Crypto's Trend":
     # Sidebar - Headlines
     st.sidebar.title("News Headlines :newspaper:")
