@@ -78,20 +78,8 @@ if page == "Top Online Casinos":
     
     components.iframe("https://lenzyh.github.io/testing_app/data/2_TopCasino_TopicWordScore.html",width=1000,height=700)
     components.iframe("https://lenzyh.github.io/testing_app/data/3_TopCasino_TopicGrouping.html",width=1000,height=400)
-
-    # Function to embed iframe with centered styling
-    def centered_iframe(url, width=1000, height=700):
-        st.markdown(
-            f'<div style="display: flex; justify-content: center; align-items: center; height: {height}px;">'
-            f'<iframe src="{url}" width="{width}" height="{height}" style="border:none;"></iframe>'
-            '</div>',
-            unsafe_allow_html=True
-        )
-    
-    # Example usage
-    centered_iframe("https://lenzyh.github.io/testing_app/data/4_TopCasino_InterDisMap.html")
-
-    components.iframe("https://lenzyh.github.io/testing_app/data/5_TopCasino_DetailedDocMap.html",width=1400,height=700)
+    components.iframe("https://lenzyh.github.io/testing_app/data/4_TopCasino_InterDisMap.html",width=1000,height=700)
+    components.iframe("https://lenzyh.github.io/testing_app/data/5_TopCasino_DetailedDocMap.html",width=1000,height=700)
 
 if page == "Industry's Trend":
 # Create a sidebar
