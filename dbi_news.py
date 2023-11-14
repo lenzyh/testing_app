@@ -64,14 +64,14 @@ if page == "Top Online Casinos":
         st.sidebar.write(f"{index + 1}. {row['Casino']}")
     st.header('Key Words Analysis')
 
-    #st.subheader("Most Mentioned Games in Hot Casinos")
-    st.image("https://lenzyh.github.io/testing_app/data/01_TopCasino_Games.png", caption='Most Mentioned Games in Hot Casinos', use_column_width=True)
+    st.subheader("Most Mentioned Games in Hot Casinos")
+    st.image("https://lenzyh.github.io/testing_app/data/01_TopCasino_Games.png", use_column_width=True)
 
-    #st.subheader("Most Mentioned Games in Hot Casinos")
+    st.subheader("Most Mentioned Payment Methods in Hot Casinos")
     st.image("https://lenzyh.github.io/testing_app/data/02_TopCasino_PaymentMethods.png", caption='Most Mentioned Payment Methods in Hot Casinos', use_column_width=True)
 
     #st.subheader("Most Mentioned Games in Hot Casinos")
-    st.image("https://lenzyh.github.io/testing_app/data/03_TopCasino_DescriptionBarChart.png", caption='Most Mentioned Description Keywords in Hot Casinos', use_column_width=True)
+    st.image("https://lenzyh.github.io/testing_app/data/03_TopCasino_DescriptionBarChart.png", use_column_width=True)
 
     st.header('Topic Modelling')
     st.image("https://lenzyh.github.io/testing_app/data/1_TopCasino_TopicWordClouds.png", use_column_width=True)
