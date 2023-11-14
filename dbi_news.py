@@ -78,7 +78,7 @@ if page == "Top Online Casinos":
 
     # Use CSS styling to set the width and height
     st.image("https://lenzyh.github.io/testing_app/data/1_TopCasino_TopicWordClouds.png", use_column_width=True, output_format='auto').\
-        css({'width': f'{1000}px', 'height': f'{800}px'})
+        css({'width': f'{1000}px', 'height': f'{1000}px'})
     
     components.iframe("https://lenzyh.github.io/testing_app/data/2_TopCasino_TopicWordScore.html",width=1000,height=800)
     components.iframe("https://lenzyh.github.io/testing_app/data/3_TopCasino_TopicGrouping.html",width=1000,height=800)
