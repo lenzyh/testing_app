@@ -98,7 +98,7 @@ if page == "Industry's Trend":
     selection = st.selectbox("Select the type:", ["Complaint", "Bonus"])
     if selection == "Complaint":
         st.subheader("Complaints' Trend")
-        st.markdown(f'<img src="https://lenzyh.github.io/testing_app/data/1_BonusTrends_TopicWordClouds.png" width="{1000}" height="{500}">', unsafe_allow_html=True)
+        st.markdown(f'<img src="https://lenzyh.github.io/testing_app/data/1_ComplaintTrends_TopicWordClouds.png" width="{1000}" height="{500}">', unsafe_allow_html=True)
         
         components.iframe("https://lenzyh.github.io/testing_app/data/2_ComplaintTrends_TopicWordScore.html",width=1000,height=700)
         components.iframe("https://lenzyh.github.io/testing_app/data/3_ComplaintTrends_TopicGrouping.html",width=1000,height=400)
@@ -106,7 +106,7 @@ if page == "Industry's Trend":
         components.iframe("https://lenzyh.github.io/testing_app/data/5_ComplaintTrends_DetailedDocMap.html",width=1400,height=700)
     if selection == "Bonus":
         st.subheader("Bonus' Trend")
-        st.markdown(f'<img src="https://lenzyh.github.io/testing_app/data/1_ComplaintTrends_TopicWordClouds.png" width="{1000}" height="{500}">', unsafe_allow_html=True)
+        st.markdown(f'<img src="https://lenzyh.github.io/testing_app/data/1_BonusTrends_TopicWordClouds.png" width="{1000}" height="{500}">', unsafe_allow_html=True)
         
         components.iframe("https://lenzyh.github.io/testing_app/data/2_BonusTrends_TopicWordScore.html",width=1000,height=700)
         components.iframe("https://lenzyh.github.io/testing_app/data/3_BonusTrends_TopicGrouping.html",width=1000,height=400)
