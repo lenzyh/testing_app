@@ -24,6 +24,7 @@ import streamlit.components.v1 as components
 name_df = pd.read_excel('data/player.xlsx')
 name_df=name_df.sort_values(by='count', ascending=False)
 match_df = pd.read_excel('data/match.xlsx')
+topcasino_headline=pd.read_csv('data/Top_Online_Casinos.csv')
 industry_headline=pd.read_csv('data/Online_Gambling_News.csv')
 headlinenba = pd.read_csv('data/headline_nba.csv')
 headlinenba = headlinenba.drop_duplicates().reset_index(drop=True)
@@ -52,10 +53,36 @@ date_today = date.today().strftime("%Y-%m-%d")
 st.sidebar.write(f"Today's Date: {date_today}")
 
 # Add a submenu for navigation
-page = st.sidebar.selectbox("Go to", ["Industry's Trend","Crypto's Trend","Sport's Trend", "NBA Match", "Football Match","Badminton's Match"])
+page = st.sidebar.selectbox("Go to", ["Top Online Casinos", "Industry's Trend","Crypto's Trend","Sport's Trend", "NBA Match", "Football Match","Badminton's Match"])
+
+if page == "Top Online Casinos":
+# Create a sidebar
+    st.sidebar.title("Top 20 Hot Casinos :slot_machine:")
+
+    # Display the top 20 rows in the sidebar
+    for index, row in topcasino_headline.head(20).iterrows():
+        st.sidebar.write(f"{index + 1}. {row['Casino']}")
+    st.header('Key Words Analysis')
+
+    #st.subheader("Most Mentioned Games in Hot Casinos")
+    st.image("https://lenzyh.github.io/testing_app/data/01_TopCasino_Games.png", caption='Most Mentioned Games in Hot Casinos', use_column_width=True)
+
+    #st.subheader("Most Mentioned Games in Hot Casinos")
+    st.image("https://lenzyh.github.io/testing_app/data/02_TopCasino_PaymentMethods.png", caption='Most Mentioned Payment Methods in Hot Casinos', use_column_width=True)
+
+    #st.subheader("Most Mentioned Games in Hot Casinos")
+    st.image("https://lenzyh.github.io/testing_app/data/03_TopCasino_DescriptionBarChart.png", caption='Most Mentioned Description Keywords in Hot Casinos', use_column_width=True)
+
+    st.header('Topic Modelling')
+    st.image("https://lenzyh.github.io/testing_app/data/1_TopCasino_TopicWordClouds.png", use_column_width=True)
+    components.iframe("https://lenzyh.github.io/testing_app/data/2_TopCasino_TopicWordScore.html",width=1000,height=800)
+    components.iframe("https://lenzyh.github.io/testing_app/data/3_TopCasino_TopicGrouping.html",width=1000,height=800)
+    components.iframe("https://lenzyh.github.io/testing_app/data/4_TopCasino_InterDisMap.html",width=1000,height=800)
+    components.iframe("https://lenzyh.github.io/testing_app/data/5_TopCasino_DetailedDocMap.html",width=1400,height=800)
+
 if page == "Industry's Trend":
 # Create a sidebar
-    st.sidebar.title("Headlines")
+    st.sidebar.title("News Headlines :newspaper:")
 
     # Create a dropdown for selecting a category
     selected_category = st.sidebar.selectbox("Select a Category", industry_headline["Category"].unique())
@@ -82,7 +109,7 @@ if page == "Industry's Trend":
         components.iframe("https://lenzyh.github.io/testing_app/data/5_BonusTrends_DetailedDocMap.html",width=1400,height=800)
 if page == "Crypto's Trend":
     # Sidebar - Headlines
-    st.sidebar.title("Headlines")
+    st.sidebar.title("News Headlines :newspaper:")
     url_headline = 'https://coinmarketcap.com/headlines/news/'
 
     response_cryptoheadline = requests.get(url_headline)
@@ -287,7 +314,7 @@ if page == "Crypto's Trend":
 
 if page == "Sport's Trend":
     # Sidebar - Headlines
-    st.sidebar.title("Headlines")
+    st.sidebar.title("News Headlines :newspaper:")
     for index, title in enumerate(headline['title'], start=1):
         st.sidebar.write(f"{index}. {title}")
     st.header("Player Of The Day :sports_medal:")
