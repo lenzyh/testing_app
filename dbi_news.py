@@ -78,8 +78,6 @@ if page == "Top Online Casinos":
     
     components.iframe("https://lenzyh.github.io/testing_app/data/2_TopCasino_TopicWordScore.html",width=1000,height=700)
     components.iframe("https://lenzyh.github.io/testing_app/data/3_TopCasino_TopicGrouping.html",width=1000,height=400)
-    
-   import streamlit as st
 
     # Function to embed iframe with centered styling
     def centered_iframe(url, width=1000, height=700):
