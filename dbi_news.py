@@ -74,7 +74,12 @@ if page == "Top Online Casinos":
     st.image("https://lenzyh.github.io/testing_app/data/03_TopCasino_DescriptionBarChart.png", use_column_width=True)
 
     st.header('Topic Modelling')
-    st.image("https://lenzyh.github.io/testing_app/data/1_TopCasino_TopicWordClouds.png", width=1000,height=800)
+    #st.image("https://lenzyh.github.io/testing_app/data/1_TopCasino_TopicWordClouds.png", width=1000,height=800)
+
+    # Use CSS styling to set the width and height
+    st.image("https://lenzyh.github.io/testing_app/data/1_TopCasino_TopicWordClouds.png", use_column_width=True, output_format='auto').\
+        css({'width': f'{1000}px', 'height': f'{800}px'})
+    
     components.iframe("https://lenzyh.github.io/testing_app/data/2_TopCasino_TopicWordScore.html",width=1000,height=800)
     components.iframe("https://lenzyh.github.io/testing_app/data/3_TopCasino_TopicGrouping.html",width=1000,height=800)
     components.iframe("https://lenzyh.github.io/testing_app/data/4_TopCasino_InterDisMap.html",width=1000,height=800)
