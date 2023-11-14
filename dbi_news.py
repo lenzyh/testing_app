@@ -74,10 +74,10 @@ if page == "Top Online Casinos":
     st.image("https://lenzyh.github.io/testing_app/data/03_TopCasino_DescriptionBarChart.png", use_column_width=True)
 
     st.header('Topic Modelling')
-    st.markdown(f'<img src="https://lenzyh.github.io/testing_app/data/1_TopCasino_TopicWordClouds.png" width="{1000}" height="{800}">', unsafe_allow_html=True)  
+    st.markdown(f'<img src="https://lenzyh.github.io/testing_app/data/1_TopCasino_TopicWordClouds.png" width="{1000}" height="{600}">', unsafe_allow_html=True)  
     components.iframe("https://lenzyh.github.io/testing_app/data/2_TopCasino_TopicWordScore.html",width=1000,height=800)
-    components.iframe("https://lenzyh.github.io/testing_app/data/3_TopCasino_TopicGrouping.html",width=1000,height=800)
-    components.iframe("https://lenzyh.github.io/testing_app/data/4_TopCasino_InterDisMap.html",width=1000,height=800)
+    components.iframe("https://lenzyh.github.io/testing_app/data/3_TopCasino_TopicGrouping.html",width=1000,height=400)
+    components.iframe("https://lenzyh.github.io/testing_app/data/4_TopCasino_InterDisMap.html",width=1000,height=400)
     components.iframe("https://lenzyh.github.io/testing_app/data/5_TopCasino_DetailedDocMap.html",width=1400,height=800)
 
 if page == "Industry's Trend":
