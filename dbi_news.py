@@ -75,12 +75,16 @@ if page == "Top Online Casinos":
 
     st.header('Topic Modelling')
     st.markdown(f'<img src="https://lenzyh.github.io/testing_app/data/1_TopCasino_TopicWordClouds.png" width="{1000}" height="{500}">', unsafe_allow_html=True)  
+    
     components.iframe("https://lenzyh.github.io/testing_app/data/2_TopCasino_TopicWordScore.html",width=1000,height=700)
     components.iframe("https://lenzyh.github.io/testing_app/data/3_TopCasino_TopicGrouping.html",width=1000,height=400)
+    
+   import streamlit as st
+
     # Function to embed iframe with centered styling
     def centered_iframe(url, width=1000, height=700):
-        st.write(
-            f'<div style="display:flex; justify-content:center; align-items:center; height: {height}px;">'
+        st.markdown(
+            f'<div style="display: flex; justify-content: center; align-items: center; height: {height}px;">'
             f'<iframe src="{url}" width="{width}" height="{height}" style="border:none;"></iframe>'
             '</div>',
             unsafe_allow_html=True
@@ -88,6 +92,7 @@ if page == "Top Online Casinos":
     
     # Example usage
     centered_iframe("https://lenzyh.github.io/testing_app/data/4_TopCasino_InterDisMap.html")
+
     components.iframe("https://lenzyh.github.io/testing_app/data/5_TopCasino_DetailedDocMap.html",width=1400,height=700)
 
 if page == "Industry's Trend":
