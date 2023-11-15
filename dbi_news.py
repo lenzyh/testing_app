@@ -273,7 +273,7 @@ if page == "Crypto's Trend":
         df.at[index, 'Name'] = crypto_link
     df2=df.drop(columns=['URL'])
     # Display the DataFrame in Streamlit
-    st.write(df2.to_html(escape=False), unsafe_allow_html=True)
+    st.markdown(df2.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
 
     st.header("Trending Cryptocurrencies:")
     url_trend = 'https://crypto.com/price/showroom/most-popular/'
@@ -307,7 +307,7 @@ if page == "Crypto's Trend":
             crypto_link = f"<a href='https://crypto.com/price/{row['Name'].lower().replace(' ','-')}' target='_blank'>{row['Name']}</a>"
             df_popular.at[index, 'Name'] = crypto_link
     # Display the DataFrame in Streamlit
-    st.write(df_popular.to_html(escape=False), unsafe_allow_html=True,index=False)
+    st.markdown(df_popular.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True,index=False)
 
     st.header("Crpyto's Summary on Reddit")
     for index, row in reddit.iterrows():
@@ -315,7 +315,7 @@ if page == "Crypto's Trend":
         reddit.at[index, 'Topic'] = crypto_link
 
     # Display the DataFrame in Streamlit
-    st.write(reddit[0:10].to_html(escape=False), unsafe_allow_html=True)
+    st.markdown(reddit[0:10].style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
 
 if page == "Sport's Trend":
     # Sidebar - Headlines
