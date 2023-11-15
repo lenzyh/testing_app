@@ -343,12 +343,11 @@ if page == "Sport's Trend":
 
     # Display the Word Cloud using Matplotlib
     wordcloud_image = wordcloud.to_image()
-
     # Display the Word Cloud image
     st.image(wordcloud_image, use_column_width=True, caption="Player Word Cloud")
-
-    st.pyplot(plt)  # Display the Matplotlib figure using st.pyplot
     st.subheader("Topic's Modelling")
+    components.iframe("https://lenzyh.github.io/testing_app/data/TopicGrouping.html.html",width=1000,height=800)
+    components.iframe("https://lenzyh.github.io/testing_app/data/DetailedDocMap.html.html.html",width=1000,height=800)
     components.iframe("https://lenzyh.github.io/testing_app/data/sport_topic.html",width=1000,height=400)
     components.iframe("https://lenzyh.github.io/testing_app/data/Intertopic.html",width=1000,height=800)
     #topic_image = Image.open('data\sport_topics.png')  # Update the file path to your image
