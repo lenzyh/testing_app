@@ -659,14 +659,17 @@ if page == "Badminton's Match":
     for file in files:
         df = pd.read_csv(file)
         dfs.append(df)
-    
+    st.sidebar.title("Badminton's Headlines")
+    headlinebadminton=pd.read_csv('data/badminton_news.csv')
+    for index, title in enumerate(headlinebadminton['Title'], start=1):
+        st.sidebar.write(f"{index}. {title}")
     # Concatenate all DataFrames into a single DataFrame
     result_df = pd.concat(dfs, ignore_index=True)
     # Sidebar: Category selection
     selected_category = st.selectbox("Select Category", result_df['Category'].unique()) 
     # Filter DataFrame based on the selected category
     filtered_df = result_df[result_df['Category'] == selected_category]
-    filtered_df=filtered_df.dop(columns=['Breakdown','Category'])
+    filtered_df=filtered_df.drop(columns=['Breakdown','Category'])
     # Add medal emojis based on the Rank
     filtered_df['Rank'] = filtered_df['Rank'].astype(str)  # Convert Rank to string
     filtered_df.loc[filtered_df['Rank'] == '1', 'Rank'] = "🥇 1"  
