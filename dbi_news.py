@@ -602,7 +602,7 @@ if page == "NBA Match":
 
 
     # Render the table with hyperlinks using HTML
-    st.write(basketball.to_html(escape=False), unsafe_allow_html=True)
+    st.markdown(basketball.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
 
     # Add a section for NBA headlines in the sidebar
     st.sidebar.title("NBA's Headlines")
@@ -656,7 +656,7 @@ if page == "NBA Match":
             df['Home Leader Name'] = df['Home Leader Name'].apply(lambda x: f"<a href='https://en.wikipedia.org/wiki/{x.replace(' ', '_')}' target='_blank'>{x}</a>")
             df['Away Leader Name'] = df['Away Leader Name'].apply(lambda x: f"<a href='https://en.wikipedia.org/wiki/{x.replace(' ', '_')}' target='_blank'>{x}</a>")
 
-            st.write(df.to_html(escape=False), unsafe_allow_html=True)
+            st.markdown(df.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
 
     def main():
         display_nba_scoreboard()
