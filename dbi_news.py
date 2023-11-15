@@ -458,16 +458,7 @@ if page == "Football Match":
     # Filter the DataFrame based on the selected tournaments
     filtered_data = football[football["Tournament"].isin(selected_tournaments)]    
 
-    # Assuming you have already created the 'filtered_data' DataFrame
-    
-    # Define the width for each column (adjust these values accordingly)
-    column_widths = {'Tournament': 150, 'Home Team': 150, 'Away Team': 150, 'Score': 80, 'Result Type': 120, 'Date': 100, 'Time': 100}
-    
-    # Create a DataFrame with the specified column widths
-    styled_data = filtered_data.style.set_table_styles([{'selector': 'th', 'props': [('width', f'{width}px')] } for width in column_widths.values()])
-    
-    # Display the styled DataFrame using st.table
-    st.table(styled_data, width=1000)  # Adjust the width as needed
+    st.markdown(filtered_data.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
 
 
