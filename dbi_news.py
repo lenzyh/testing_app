@@ -458,7 +458,7 @@ if page == "Football Match":
     # Filter the DataFrame based on the selected tournaments
     filtered_data = football[football["Tournament"].isin(selected_tournaments)]    
     # Display the filtered DataFrame without index
-    st.dataframe(filtered_data.style.hide_index())
+    st.table(filtered_data)
 
 if page == "NBA Match":
     # displaying image function
