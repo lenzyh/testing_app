@@ -375,6 +375,11 @@ if page == "Sport's Trend":
     #     st.components.v1.html(html_file2.read(), width=1000, height=800)
 
 if page == "Football Match":
+    from bs4 import BeautifulSoup
+    import time
+    import pandas as pd
+    import requests
+    import re
     st.header("Football Match")
     from datetime import date, timedelta
     
