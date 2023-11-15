@@ -376,6 +376,73 @@ if page == "Sport's Trend":
 
 if page == "Football Match":
     st.header("Football Match")
+    from datetime import date, timedelta
+    
+    # List of date offsets (-1 for yesterday, 0 for today, 1 for tomorrow)
+    date_offsets = [-1, 0, 1]
+    
+    data = []
+    
+    for date_offset in date_offsets:
+        # Calculate the target date
+        target_date = date.today() + timedelta(days=date_offset)
+        
+        # Form the URL with the target date
+        url_schedule = f'https://www.espn.in/football/fixtures/_/date/{target_date.strftime("%Y%m%d")}'
+        
+        # Make the request
+        response_schedule = requests.get(url_schedule, headers=headers)
+    
+        # Check if the request was successful (HTTP status code 200)
+        if response_schedule.status_code == 200:
+            print(f"Request for {target_date.strftime('%Y-%m-%d')} was successful")
+            soup_schedule = BeautifulSoup(response_schedule.text, 'html.parser')
+            
+            # Continue parsing the HTML content using BeautifulSoup
+            
+            # Extracting all tournament names, home team names, away team names, and scores
+            responsive_tables = soup_schedule.select('.ResponsiveTable')
+    
+            for responsive_table in responsive_tables:
+                # Extracting tournament names
+                title_elements = responsive_table.find_all('div', class_='Table__Title')
+                tournament_list = [title.text for title in title_elements]
+                matches = responsive_table.select('.Table__TR.Table__TR--sm')
+    
+                for match in matches:
+                    home_team_element = match.select('.local .Table__Team a')
+                    away_team_element = match.select('.matchTeams .Table__Team.away a')
+                    score_element = match.select_one('.local a.AnchorLink.at') if match.select_one('.local') else None
+                    result_type_element = match.select_one('.teams__col.Table__TD a.AnchorLink') if match.select_one('.teams__col.Table__TD') else None
+                    time_element = match.select_one('.date__col.Table__TD a.AnchorLink') if match.select_one('.date__col.Table__TD') else None
+    
+                    # Check if both home_team and away_team elements exist
+                    if home_team_element and away_team_element:
+                        home_team = home_team_element[1].text if len(home_team_element) > 1 else 'N/A'
+                        away_team = away_team_element[1].text if len(away_team_element) > 1 else 'N/A'
+    
+                        # Extracting the score
+                        score = score_element.text.strip() if score_element else 'N/A'
+                        result_type = result_type_element.text.strip() if result_type_element else "Haven't Ended"
+                        time = time_element.text.strip() if time_element else "Match Ended"
+                        
+                        # Append data for each tournament
+                        for tournament in tournament_list:
+                            data.append({
+                                'Tournament': tournament,
+                                'Home Team': home_team,
+                                'Away Team': away_team,
+                                'Score': score,
+                                'Result Type': result_type,
+                                'Date': target_date.strftime('%Y-%m-%d'),
+                                'Time': time
+                            })
+    
+        else:
+            print(f"Request for {target_date.strftime('%Y-%m-%d')} failed with status code: {response_schedule.status_code}")
+    
+    # Creating a DataFrame with the extracted information
+    football = pd.DataFrame(data)
     tournaments = football["Tournament"].unique()
     selected_tournament = st.selectbox("Select a Tournament (Single Selection)", tournaments)
     selected_tournaments = st.multiselect("Select Tournaments (Multiple Selections)", tournaments)
