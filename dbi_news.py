@@ -461,9 +461,9 @@ if page == "Football Match":
         filtered_df = football[football["Tournament"].isin(selected_tournaments)]
     else:
         filtered_df = football  # No selection, show all data
-
+    t.table(football)
     # Display the filtered table
-    st.table(football.reset_index(drop=True, inplace=True))
+    st.table(filtered_df.reset_index(drop=True, inplace=True))
 
 if page == "NBA Match":
     # displaying image function
