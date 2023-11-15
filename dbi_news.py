@@ -663,4 +663,20 @@ if page == "NBA Match":
 
     if __name__ == "__main__":
         main()
-#if page == "Badminton's Match":
+if page == "Badminton's Match":
+    import glob
+
+    # Specify the path where your CSV files are located
+    files = glob.glob('data/rankings_*.csv')
+    
+    # Initialize an empty list to store DataFrames
+    dfs = []
+    
+    # Loop through the list of files and read each CSV into a DataFrame
+    for file in files:
+        df = pd.read_csv(file)
+        dfs.append(df)
+    
+    # Concatenate all DataFrames into a single DataFrame
+    result_df = pd.concat(dfs, ignore_index=True)
+    st.table(result_df)
