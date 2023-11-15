@@ -347,7 +347,7 @@ if page == "Sport's Trend":
     st.image(wordcloud_image, use_column_width=True, caption="Player Word Cloud")
     st.subheader("Topic's Modelling")
     components.iframe("https://lenzyh.github.io/testing_app/data/TopicGrouping.html",width=1000,height=800)
-    components.iframe("https://lenzyh.github.io/testing_app/data/DetailedDocMap.html.html",width=1000,height=800)
+    components.iframe("https://lenzyh.github.io/testing_app/data/DetailedDocMap.html",width=1000,height=800)
     components.iframe("https://lenzyh.github.io/testing_app/data/sport_topic.html",width=1000,height=400)
     components.iframe("https://lenzyh.github.io/testing_app/data/Intertopic.html",width=1000,height=800)
     #topic_image = Image.open('data\sport_topics.png')  # Update the file path to your image
@@ -663,11 +663,10 @@ if page == "Badminton's Match":
     # Concatenate all DataFrames into a single DataFrame
     result_df = pd.concat(dfs, ignore_index=True)
     # Sidebar: Category selection
-    selected_category = st.sidebar.selectbox("Select Category", result_df['Category'].unique())
-    
+    selected_category = st.selectbox("Select Category", result_df['Category'].unique()) 
     # Filter DataFrame based on the selected category
     filtered_df = result_df[result_df['Category'] == selected_category]
-    
+    filtered_df=filtered_df.dop(columns=['Breakdown','Category'])
     # Add medal emojis based on the Rank
     filtered_df['Rank'] = filtered_df['Rank'].astype(str)  # Convert Rank to string
     filtered_df.loc[filtered_df['Rank'] == '1', 'Rank'] = "🥇 1"  
