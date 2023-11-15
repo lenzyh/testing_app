@@ -679,4 +679,10 @@ if page == "Badminton's Match":
     
     # Concatenate all DataFrames into a single DataFrame
     result_df = pd.concat(dfs, ignore_index=True)
-    st.table(result_df)
+    # Sidebar: Category selection
+    selected_category = st.sidebar.selectbox("Select Category", result_df['Category'].unique())
+    
+    # Filter DataFrame based on the selected category
+    filtered_df = result_df[result_df['Category'] == selected_category]
+    filtered_df.loc[filtered_df['Rank']==1,'Rank'] = ":first_place_medal: 1"
+    st.markdown(filtered_df.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
