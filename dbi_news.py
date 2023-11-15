@@ -457,9 +457,17 @@ if page == "Football Match":
     selected_tournaments = st.multiselect("Select Tournaments", tournaments)    
     # Filter the DataFrame based on the selected tournaments
     filtered_data = football[football["Tournament"].isin(selected_tournaments)]    
-    # Display the filtered DataFrame without index
-    st.dataframe(filtered_data)
-    st.dataframe(filtered_data.set_index(filtered_data.columns[0]))
+    # Define the width for each column (adjust these values accordingly)
+    column_widths = {'Tournament': '150px', 'Home Team': '150px', 'Away Team': '150px', 'Score': '80px', 'Result Type': '120px', 'Date': '100px', 'Time': '100px'}
+    
+    # Create a custom HTML table with specified column widths
+    html_table = f"<table style='width:100%'><tr>{''.join(f'<th style='width:{width}'>{col}</th>' for col, width in column_widths.items())}</tr>"
+    for _, row in filtered_data.iterrows():
+        html_table += f"<tr>{''.join(f'<td style='width:{width}'>{value}</td>' for value, width in zip(row, column_widths.values()))}</tr>"
+    html_table += "</table>"
+    
+    # Display the HTML table using st.markdown
+    st.markdown(html_table, unsafe_allow_html=True)
 
 if page == "NBA Match":
     # displaying image function
