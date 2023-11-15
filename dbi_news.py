@@ -684,5 +684,12 @@ if page == "Badminton's Match":
     
     # Filter DataFrame based on the selected category
     filtered_df = result_df[result_df['Category'] == selected_category]
-    filtered_df.loc[filtered_df['Rank']==1,'Rank'] = ":first_place_medal: 1"
-    st.markdown(filtered_df.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
+    
+    # Add medal emojis based on the Rank
+    filtered_df['Rank'] = filtered_df['Rank'].astype(str)  # Convert Rank to string
+    filtered_df.loc[filtered_df['Rank'] == '1', 'Rank'] = "🥇 1"  
+    filtered_df.loc[filtered_df['Rank'] == '2', 'Rank'] = "🥈 2" 
+    filtered_df.loc[filtered_df['Rank'] == '3', 'Rank'] = "🥉 3" 
+    # Display the DataFrame with added medals
+    st.dataframe(filtered_df.style.hide_index(), escape=False)
+
