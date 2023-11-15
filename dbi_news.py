@@ -389,7 +389,10 @@ if page == "Football Match":
         
         # Form the URL with the target date
         url_schedule = f'https://www.espn.in/football/fixtures/_/date/{target_date.strftime("%Y%m%d")}'
-        
+        headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+        }
+            
         # Make the request
         response_schedule = requests.get(url_schedule, headers=headers)
     
