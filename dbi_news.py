@@ -315,7 +315,8 @@ if page == "Crypto's Trend":
         reddit.at[index, 'Topic'] = crypto_link
 
     # Display the DataFrame in Streamlit
-    st.markdown(reddit[0:10].to_html(escape=False), unsafe_allow_html=True)
+    reddit2 = reddit[0:10]
+    st.markdown(reddit2.to_html(escape=False), unsafe_allow_html=True)
 if page == "Sport's Trend":
     # Sidebar - Headlines
     st.sidebar.title("News Headlines :newspaper:")
