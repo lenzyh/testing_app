@@ -458,17 +458,17 @@ if page == "Football Match":
     # Filter the DataFrame based on the selected tournaments
     filtered_data = football[football["Tournament"].isin(selected_tournaments)]    
 
+    # Assuming you have already created the 'filtered_data' DataFrame
+    
     # Define the width for each column (adjust these values accordingly)
-    column_widths = {'Tournament': '150px', 'Home Team': '150px', 'Away Team': '150px', 'Score': '80px', 'Result Type': '120px', 'Date': '100px', 'Time': '100px'}
+    column_widths = {'Tournament': 150, 'Home Team': 150, 'Away Team': 150, 'Score': 80, 'Result Type': 120, 'Date': 100, 'Time': 100}
     
-    # Create a custom HTML table with specified column widths
-    html_table = f"<table style='width:100%'><tr>{''.join(f'<th style=\"width:{width}\">{col}</th>' for col, width in column_widths.items())}</tr>"
-    for _, row in filtered_data.iterrows():
-        html_table += f"<tr>{''.join(f'<td style=\"width:{width}\">{value}</td>' for value, width in zip(row, column_widths.values()))}</tr>"
-    html_table += "</table>"
+    # Create a DataFrame with the specified column widths
+    styled_data = filtered_data.style.set_table_styles([{'selector': 'th', 'props': [('width', f'{width}px')] } for width in column_widths.values()])
     
-    # Display the HTML table using st.markdown
-    st.markdown(html_table, unsafe_allow_html=True)
+    # Display the styled DataFrame using st.table
+    st.table(styled_data, width=1000)  # Adjust the width as needed
+
 
 
 if page == "NBA Match":
