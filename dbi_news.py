@@ -307,7 +307,7 @@ if page == "Crypto's Trend":
             crypto_link = f"<a href='https://crypto.com/price/{row['Name'].lower().replace(' ','-')}' target='_blank'>{row['Name']}</a>"
             df_popular.at[index, 'Name'] = crypto_link
     # Display the DataFrame in Streamlit
-    st.markdown(df_popular.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True,index=False)
+    st.markdown(df_popular.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
 
     st.header("Crpyto's Summary on Reddit")
     for index, row in reddit.iterrows():
