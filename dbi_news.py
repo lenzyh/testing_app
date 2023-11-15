@@ -322,20 +322,13 @@ if page == "Sport's Trend":
     st.sidebar.title("News Headlines :newspaper:")
     for index, title in enumerate(headline['title'], start=1):
         st.sidebar.write(f"{index}. {title}")
-    st.header("Player Of The Day :sports_medal:")
+    st.subheader("Player Of The Day :sports_medal:")
 
     # Render player name as clickable Markdown text
     player_name = f"[{name_df['Entity'][0]}](https://en.wikipedia.org/wiki/{player.replace(' ', '_')})"
     st.markdown(player_name)
 
     st.image(player_image)
-
-    st.header("Event Of The Day")
-
-    # Render match name as clickable Markdown text
-    match_name = f"[{match_df['Event'][1]}](https://en.wikipedia.org/wiki/{match.replace(' ', '_')})"
-    st.markdown(match_name)
-    st.image(match_image)
 
     # Generate a Word Cloud
     st.subheader("Player Word Cloud")
@@ -353,15 +346,6 @@ if page == "Sport's Trend":
 
     # Display the Word Cloud image
     st.image(wordcloud_image, use_column_width=True, caption="Player Word Cloud")
-
-    # Create the bar chart
-    st.subheader("Top 10 Mentioned Events")
-    top_10_matches = match_df[1:9]
-    plt.figure(figsize=(10, 6))
-    plt.barh(top_10_matches['Event'], top_10_matches['Count'], color='skyblue')
-    plt.xlabel('Count')
-    plt.ylabel('Match')
-    plt.gca().invert_yaxis()
 
     st.pyplot(plt)  # Display the Matplotlib figure using st.pyplot
     st.subheader("Topic's Modelling")
@@ -469,7 +453,7 @@ if page == "NBA Match":
         encoded = base64.b64encode(img_bytes).decode()
         return encoded
     st.header("NBA Match :basketball:")
-    st.header('Top Scorer')
+    st.subheader('Top Scorer')
     url = 'https://www.basketball-reference.com/leagues/NBA_2024_totals.html'
 
     response = requests.get(url)
@@ -494,7 +478,7 @@ if page == "NBA Match":
     st.image(f'https://www.basketball-reference.com/req/202106291/images/headshots/{img_link}.jpg')
     st.write(f"{player_names[0]} has been averaging {parentheses_text} PPG for this season :fire:")
     # Create hyperlinks for the Home Team and Away Team columns
-    st.header(f"Schedule")
+    st.subheader(f"Schedule")
     year=(date.today()+ timedelta(days=365)).strftime('%Y')
     month=date.today().strftime('%B').lower()
     url_schedule = f'https://www.basketball-reference.com/leagues/NBA_{year}_games-{month}.html#schedule'
@@ -611,7 +595,7 @@ if page == "NBA Match":
 
     # Function to fetch and display NBA scoreboard as a table
     def display_nba_scoreboard():
-        st.header("NBA Live Scoreboard")
+        st.subheader("NBA Live Scoreboard")
         st.write("All the data is from Basketball Reference and Wikipedia")
         # Get today's scorecard
         games = scoreboard.ScoreBoard()
