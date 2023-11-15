@@ -451,19 +451,14 @@ if page == "Football Match":
     
     # Creating a DataFrame with the extracted information
     football = pd.DataFrame(data)
-    tournaments = football["Tournament"].unique()
-    selected_tournament = st.selectbox("Select a Tournament (Single Selection)", tournaments)
-    selected_tournaments = st.multiselect("Select Tournaments (Multiple Selections)", tournaments)
-    # Filter the DataFrame based on the selected tournament(s)
-    if selected_tournament:
-        filtered_df = football[football["Tournament"] == selected_tournament]
-    elif selected_tournaments:
-        filtered_df = football[football["Tournament"].isin(selected_tournaments)]
-    else:
-        filtered_df = football  # No selection, show all data
-    st.table(football)
-    # Display the filtered table
-    st.table(filtered_df.reset_index(drop=True, inplace=True))
+    # Get unique tournament names
+    tournaments = football["Tournament"].unique()    
+    # Create a multi-select dropdown for selecting tournaments
+    selected_tournaments = st.multiselect("Select Tournaments", tournaments)    
+    # Filter the DataFrame based on the selected tournaments
+    filtered_data = football[football["Tournament"].isin(selected_tournaments)]    
+    # Display the filtered DataFrame without index
+    st.dataframe(filtered_data.style.hide_index())
 
 if page == "NBA Match":
     # displaying image function
