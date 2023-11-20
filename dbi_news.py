@@ -28,6 +28,7 @@ topcasino_headline=pd.read_csv('data/Top_Online_Casinos.csv')
 industry_headline=pd.read_csv('data/Online_Gambling_News.csv')
 headlinenba = pd.read_csv('data/headline_nba.csv')
 headlinenba = headlinenba.drop_duplicates().reset_index(drop=True)
+lineup= pd.read_csv('data/NBALineup.csv')
 headline = pd.read_csv('data/headline.csv')
 headline = headline.drop_duplicates().reset_index(drop=True)
 football= pd.read_csv('data/match_data.csv')
@@ -646,6 +647,36 @@ if page == "NBA Match":
 
     if __name__ == "__main__":
         main()
+    st.subheader('NBA Lineup Analysis Tool ')
+    team = st.selectbox(
+     'Choose Your Team:',
+     lineup['team'].unique())
+    df_team = lineup[lineup['team'] == team].reset_index(drop=True)
+    roster = df_team['GROUP_NAME'].unique()
+    lineup = st.selectbox(
+     'Choose The 5 Man Lineup:',
+     roster)
+    df_lineup = df_team[df_team['GROUP_NAME'] == roster]
+    df_important = df_lineup[['MIN', 'PLUS_MINUS','FG_PCT', 'FG3_PCT']]
+    st.markdown(df_important.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
+    col1, col2, col3, col4 = st.columns(4)
+    with col1: 
+        fig_min = px.histogram(df_team, x="MIN")
+        fig_min.add_vline(x=df_important['MIN'].values[0],line_color='red')
+        st.plotly_chart(fig_min, use_container_width=True)
+    with col2: 
+        fig_2 = px.histogram(df_team, x="PLUS_MINUS")
+        fig_2.add_vline(x=df_important['PLUS_MINUS'].values[0],line_color='red')
+        st.plotly_chart(fig_2, use_container_width=True)
+    with col3: 
+        fig_3 = px.histogram(df_team, x="FG_PCT")
+        fig_3.add_vline(x=df_important['FG_PCT'].values[0],line_color='red')
+        st.plotly_chart(fig_3, use_container_width=True)
+    
+    with col4: 
+        fig_4 = px.histogram(df_team, x="FG3_PCT")
+        fig_4.add_vline(x=df_important['FG3_PCT'].values[0],line_color='red')
+        st.plotly_chart(fig_4, use_container_width=True)
 if page == "Badminton's Match":
     import glob
 
