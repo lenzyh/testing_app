@@ -285,8 +285,8 @@ if page == "Crypto's Trend":
     # Find all td elements with style="text-align:end"
     crypto_elements = soup_popular.find_all('span', class_='chakra-text css-eb93p1')
     td_elements = soup_popular.find_all('p', class_='chakra-text css-13hqrwd')
-    change_elements = soup_popular.find_all('p', class_=['chakra-text css-110rl6j', 'chakra-text css-150md6i'])
-    url_elements = soup.find_all('a', class_=['chakra-link css-tzmkfm'])
+    change_elements = soup_popular.find_all('p', class_=['chakra-text css-2ygcmq','chakra-text css-110rl6j', 'chakra-text css-150md6i'])
+    #url_elements = soup.find_all('a', class_=['chakra-link css-tzmkfm'])
     # Initialize lists to store the extracted text
     names = [element.text for element in crypto_elements]
     td = [element.text for element in td_elements]
