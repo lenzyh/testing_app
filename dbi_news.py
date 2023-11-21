@@ -659,7 +659,7 @@ if page == "NBA Match":
      roster)
     df_lineup = df_team[df_team['GROUP_NAME'] == roster]
     df_important = df_lineup[['MIN', 'PLUS_MINUS','FG_PCT', 'FG3_PCT']]
-    st.markdown(df_important.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
+    #st.markdown(df_important.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
     col1, col2, col3, col4 = st.columns(4)
     with col1: 
         fig_min = px.histogram(df_team, x="MIN")
