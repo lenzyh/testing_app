@@ -697,7 +697,6 @@ if page == "NBA Match":
         st.plotly_chart(fig_7, use_container_width=True)
 
     st.subheader('NBA Player Stats Explorer')
-    
     selected_year = st.selectbox('Year', list(reversed(range(1950,2025))))
     
     # Web scraping of NBA player stats
