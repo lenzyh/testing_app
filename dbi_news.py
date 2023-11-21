@@ -722,17 +722,14 @@ if page == "NBA Match":
     
     # Filtering data
     df_selected_team = playerstats[(playerstats.Tm.isin(selected_team)) & (playerstats.Pos.isin(selected_pos))]
-    selected_column = st.selectbox("Select a column to sort:", ['PTS', 'REB', 'TRB', 'STL', 'BLK', 'FG%', '3P%'])
+    selected_column = st.selectbox("Select a column to sort:", ['PTS', 'AST', 'TRB', 'STL', 'BLK', 'FG%', '3P%','FT%','ORB','DRB','TOV','FG','3P','MP','eFG%'])
     st.write('Data Dimension: ' + str(df_selected_team.shape[0]) + ' rows and ' + str(df_selected_team.shape[1]) + ' columns.')
-    sort_button = st.button("Sort By " + selected_column)
-    # Display the sorted DataFrame
-    if sort_button:   
-        # Convert the selected column to float in the copy
-        selected_column2 = f"{selected_column}_converted"
-        df_selected_team[selected_column2] = df_selected_team[selected_column].astype(float)
-        # Sort the DataFrame by the selected column in descending order
-        df_selected_team = df_selected_team.sort_values(by=selected_column2, ascending=False)
-        df_selected_team=df_selected_team.drop(columns=[selected_column2])
+    # Convert the selected column to float in the copy
+    selected_column2 = f"{selected_column}_converted"
+    df_selected_team[selected_column2] = df_selected_team[selected_column].astype(float)
+    # Sort the DataFrame by the selected column in descending order
+    df_selected_team = df_selected_team.sort_values(by=selected_column2, ascending=False)
+    df_selected_team=df_selected_team.drop(columns=[selected_column2])
     st.markdown(df_selected_team.style.hide(axis="index").to_html(), unsafe_allow_html=True)
     # Download NBA player stats data
     # https://discuss.streamlit.io/t/how-to-download-file-in-streamlit/1806
