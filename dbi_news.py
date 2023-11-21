@@ -20,7 +20,6 @@ import matplotlib.pyplot as plt
 import requests
 import streamlit.components.v1 as components
 import plotly.express as px
-from st_aggrid import AgGrid
 
 # Load data (name_df, match_df, headline)
 name_df = pd.read_excel('data/player.xlsx')
