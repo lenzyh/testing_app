@@ -722,7 +722,12 @@ if page == "NBA Match":
     
     # Filtering data
     df_selected_team = playerstats[(playerstats.Tm.isin(selected_team)) & (playerstats.Pos.isin(selected_pos))]
+    selected_column = st.selectbox("Select a column to sort:", ['PTS', 'REB', 'TRB', 'STL', 'BLK', 'FG%', '3P%'])
+    sort_button = st.button("Sort By ",selected_column)
     st.write('Data Dimension: ' + str(df_selected_team.shape[0]) + ' rows and ' + str(df_selected_team.shape[1]) + ' columns.')
+    if sort_button:
+        # Sort the DataFrame by the selected column in descending order
+        df_selected_team = df_selected_team.sort_values(by=selected_column.astype('float'), ascending=False)
     st.markdown(df_selected_team.style.hide(axis="index").to_html(), unsafe_allow_html=True)
     
     # Download NBA player stats data
