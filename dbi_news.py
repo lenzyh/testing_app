@@ -723,7 +723,7 @@ if page == "NBA Match":
     # Filtering data
     df_selected_team = playerstats[(playerstats.Tm.isin(selected_team)) & (playerstats.Pos.isin(selected_pos))]
     st.write('Data Dimension: ' + str(df_selected_team.shape[0]) + ' rows and ' + str(df_selected_team.shape[1]) + ' columns.')
-    st.markdown(filtered_data.style.hide(axis="index").to_html(), unsafe_allow_html=True)
+    st.markdown(df_selected_team.style.hide(axis="index").to_html(), unsafe_allow_html=True)
     
     # Download NBA player stats data
     # https://discuss.streamlit.io/t/how-to-download-file-in-streamlit/1806
