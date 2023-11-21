@@ -726,33 +726,14 @@ if page == "NBA Match":
     st.write('Data Dimension: ' + str(df_selected_team.shape[0]) + ' rows and ' + str(df_selected_team.shape[1]) + ' columns.')
     sort_button = st.button("Sort By " + selected_column)
     # Display the sorted DataFrame
-    if sort_button:
-        # Create a copy of the DataFrame for sorting
-        df_sorted_team = df_selected_team.copy()
-    
+    if sort_button:   
         # Convert the selected column to float in the copy
-        df_sorted_team[selected_column2] = df_sorted_team[selected_column].astype(float)
-    
+        selected_column2 = f"{selected_column}_converted"
+        df_selected_team[selected_column2] = df_selected_team[selected_column].astype(float)
         # Sort the DataFrame by the selected column in descending order
-        df_sorted_team = df_sorted_team.sort_values(by=selected_column2, ascending=False)
-        df_sorted_team=df_sorted_team.drop(columns=[selected_column2])
+        df_selected_team = df_selected_team.sort_values(by=selected_column2, ascending=False)
+        df_selected_team=df_selected_team.drop(columns=[selected_column2])
     st.markdown(df_selected_team.style.hide(axis="index").to_html(), unsafe_allow_html=True)
-    # Create a button to trigger sorting
-    
-    
-    # Display the sorted DataFrame
-    if sort_button:
-        # Create a copy of the DataFrame for sorting
-        df_sorted_team = df_selected_team.copy()
-    
-        # Convert the selected column to float in the copy
-        df_sorted_team[selected_column] = df_sorted_team[selected_column].astype(float)
-    
-        # Sort the DataFrame by the selected column in descending order
-        df_sorted_team = df_sorted_team.sort_values(by=selected_column, ascending=False)
-    
-        # Display the sorted DataFrame
-        st.markdown(df_sorted_team.style.hide(axis="index").to_html(), unsafe_allow_html=True)
     # Download NBA player stats data
     # https://discuss.streamlit.io/t/how-to-download-file-in-streamlit/1806
     def filedownload(df):
