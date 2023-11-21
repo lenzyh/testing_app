@@ -20,6 +20,7 @@ import matplotlib.pyplot as plt
 import requests
 import streamlit.components.v1 as components
 import plotly.express as px
+from st_aggrid import AgGrid
 
 # Load data (name_df, match_df, headline)
 name_df = pd.read_excel('data/player.xlsx')
@@ -730,7 +731,18 @@ if page == "NBA Match":
     # Sort the DataFrame by the selected column in descending order
     df_selected_team = df_selected_team.sort_values(by=selected_column2, ascending=False)
     df_selected_team=df_selected_team.drop(columns=[selected_column2])
-    st.markdown(df_selected_team.style.hide(axis="index").to_html(), unsafe_allow_html=True)
+    html = df_selected_team.style.hide(axis="index").to_html(escape=False)
+    css = """
+    <style>
+        th, td {
+            position: sticky;
+            left: 0;
+            background-color: white;
+            z-index: 1;
+        }
+    </style>
+    """
+    st.markdown(css + html, unsafe_allow_html=True)
     # Download NBA player stats data
     # https://discuss.streamlit.io/t/how-to-download-file-in-streamlit/1806
     def filedownload(df):
