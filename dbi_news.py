@@ -658,9 +658,10 @@ if page == "NBA Match":
      'Choose The 5 Man Lineup:',
      roster)
     df_lineup = df_team[df_team['GROUP_NAME'] == roster]
-    df_important = df_lineup[['MIN', 'PLUS_MINUS','FG_PCT', 'FG3_PCT']]
+    df_important = df_lineup[['MIN','PLUS_MINUS','PTS','AST','REB','FG_PCT', 'FG3_PCT']]
+    df_important=df_important.sort_values(by=['MIN','PLUS_MINUS'],ascending=[FALSE,FALSE]
     #st.markdown(df_important.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3, col4,col5,col6,col7 = st.columns(4)
     with col1: 
         fig_min = px.histogram(df_team, x="MIN")
         fig_min.add_vline(x=df_important['MIN'].values[0],line_color='red')
@@ -670,14 +671,26 @@ if page == "NBA Match":
         fig_2.add_vline(x=df_important['PLUS_MINUS'].values[0],line_color='red')
         st.plotly_chart(fig_2, use_container_width=True)
     with col3: 
-        fig_3 = px.histogram(df_team, x="FG_PCT")
-        fig_3.add_vline(x=df_important['FG_PCT'].values[0],line_color='red')
+        fig_3 = px.histogram(df_team, x="PTS")
+        fig_3.add_vline(x=df_important['PTS'].values[0],line_color='red')
         st.plotly_chart(fig_3, use_container_width=True)
     
     with col4: 
-        fig_4 = px.histogram(df_team, x="FG3_PCT")
-        fig_4.add_vline(x=df_important['FG3_PCT'].values[0],line_color='red')
+        fig_4 = px.histogram(df_team, x="AST")
+        fig_4.add_vline(x=df_important['AST'].values[0],line_color='red')
         st.plotly_chart(fig_4, use_container_width=True)
+    with col5: 
+        fig_5 = px.histogram(df_team, x="REB")
+        fig_5.add_vline(x=df_important['REB'].values[0],line_color='red')
+        st.plotly_chart(fig_5, use_container_width=True)
+    with col6: 
+        fig_6 = px.histogram(df_team, x="FG_PCT")
+        fig_6.add_vline(x=df_important['FG_PCT'].values[0],line_color='red')
+        st.plotly_chart(fig_6, use_container_width=True)
+    with col7: 
+        fig_7 = px.histogram(df_team, x="FG3_PCT")
+        fig_7.add_vline(x=df_important['FG3_PCT'].values[0],line_color='red')
+        st.plotly_chart(fig_7, use_container_width=True)
 if page == "Badminton's Match":
     import glob
 
