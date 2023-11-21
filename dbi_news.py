@@ -730,7 +730,7 @@ if page == "NBA Match":
     # Convert columns to float
     df_selected_team[columns_to_convert] = df_selected_team[columns_to_convert].astype(float)
     st.write('Data Dimension: ' + str(df_selected_team.shape[0]) + ' rows and ' + str(df_selected_team.shape[1]) + ' columns.')
-    st.dataframe(df_selected_team.style.hide(axis="index"), height=800, sort_mode="multi")
+    st.table(df_selected_team.style.hide(axis="index"))
     
     # Download NBA player stats data
     # https://discuss.streamlit.io/t/how-to-download-file-in-streamlit/1806
