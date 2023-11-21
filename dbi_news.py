@@ -721,9 +721,16 @@ if page == "NBA Match":
     
     # Filtering data
     df_selected_team = playerstats[(playerstats.Tm.isin(selected_team)) & (playerstats.Pos.isin(selected_pos))]
-    
+    # Assuming df_selected_team is your DataFrame
+    columns_to_exclude = ['Player', 'Pos', 'Tm']
+
+    # Get a list of columns to convert to float
+    columns_to_convert = [col for col in df_selected_team.columns if col not in columns_to_exclude]
+
+    # Convert columns to float
+    df_selected_team[columns_to_convert] = df_selected_team[columns_to_convert].astype(float)
     st.write('Data Dimension: ' + str(df_selected_team.shape[0]) + ' rows and ' + str(df_selected_team.shape[1]) + ' columns.')
-    st.markdown(df_selected_team.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
+    st.dataframe(df_selected_team.style.hide(axis="index"), height=800, sort_mode="multi")
     
     # Download NBA player stats data
     # https://discuss.streamlit.io/t/how-to-download-file-in-streamlit/1806
