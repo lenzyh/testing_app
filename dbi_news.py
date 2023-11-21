@@ -64,7 +64,7 @@ if page == "Top Online Casinos":
     # Display the top 20 rows in the sidebar
     for index, row in topcasino_headline.head(20).iterrows():
         st.sidebar.write(f"{index + 1}. {row['Casino']}")
-    st.header('Key Words Analysis')
+    st.subheader('Key Words Analysis')
 
     st.subheader("Most Mentioned Games in Hot Casinos")
     st.image("https://lenzyh.github.io/testing_app/data/01_TopCasino_Games.png", use_column_width=True)
@@ -75,7 +75,7 @@ if page == "Top Online Casinos":
     st.subheader("Most Mentioned Decription Keywwords in Hot Casinos")
     st.image("https://lenzyh.github.io/testing_app/data/03_TopCasino_DescriptionBarChart.png", use_column_width=True)
 
-    st.header('Topic Modelling')
+    st.subheader('Topic Modelling')
     st.markdown(f'<img src="https://lenzyh.github.io/testing_app/data/1_TopCasino_TopicWordClouds.png" width="{1000}" height="{500}">', unsafe_allow_html=True)  
     
     components.iframe("https://lenzyh.github.io/testing_app/data/2_TopCasino_TopicWordScore.html",width=1000,height=700)
@@ -96,7 +96,7 @@ if page == "Industry's Trend":
     # Display the filtered titles in the sidebar
     for index, Title in enumerate(filtered_category['Title'], start=1):
         st.sidebar.write(f"{index}. {Title}")
-    st.header('Topic Modelling')
+    st.subheader('Topic Modelling')
     selection = st.selectbox("Select the type:", ["Complaint", "Bonus"])
     if selection == "Complaint":
         st.subheader("Complaints' Trend")
@@ -136,7 +136,7 @@ if page == "Crypto's Trend":
     for index, title in enumerate(crpyto_headline['title'], start=1):
         st.sidebar.write(f"{index}. {title}")
 
-    st.header("Rocket of the Day :rocket:")
+    st.subheader("Rocket of the Day :rocket:")
     url_gainlose='https://crypto.com/price/showroom/biggest-gainers'
     response_gainlose = requests.get(url_gainlose)
     soup_gainlose = BeautifulSoup(response_gainlose.text, 'html.parser')
@@ -229,12 +229,12 @@ if page == "Crypto's Trend":
     st.image(rocket_image_urls2, caption='Nice! $$')
     st.markdown(f"{up_name} rise <font color='green'><b>{up_percent}</b></font> during the past 24 hours! :moneybag:", unsafe_allow_html=True)
 
-    st.header("Fall of the Day 	:skull:")
+    st.subheader("Fall of the Day 	:skull:")
     down_name = f"[{down_name}](https://crypto.com/price/{down_name.lower().replace(' ','-')})"
     st.markdown(down_name)
     st.image(fall_image_urls2, caption='TT')
     st.markdown(f"{down_name} down <font color='red'><b>{down_percent}</b></font> during the past 24 hours! :fearful:", unsafe_allow_html=True)
-    st.header("Crypto's Data")
+    st.subheader("Crypto's Data")
     url = 'https://crypto.com/price'
 
     response = requests.get(url)
@@ -277,7 +277,7 @@ if page == "Crypto's Trend":
     # Display the DataFrame in Streamlit
     st.markdown(df2.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
 
-    st.header("Trending Cryptocurrencies:")
+    st.subheader("Trending Cryptocurrencies:")
     url_trend = 'https://crypto.com/price/showroom/most-popular/'
 
     response = requests.get(url_trend)
@@ -311,7 +311,7 @@ if page == "Crypto's Trend":
     # Display the DataFrame in Streamlit
     st.markdown(df_popular.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
 
-    st.header("Crpyto's Summary on Reddit")
+    st.subheader("Crpyto's Summary on Reddit")
     for index, row in reddit.iterrows():
         crypto_link = f"<a href='https://www.reddit.com/r/{row['Topic'].replace(' ','-')}' target='_blank'>{row['Topic']}</a>"
         reddit.at[index, 'Topic'] = crypto_link
@@ -442,7 +442,7 @@ if page == "Football Match":
     selected_tournaments = st.multiselect("Select Tournaments", tournaments)    
     # Filter the DataFrame based on the selected tournaments
     filtered_data = football[football["Tournament"].isin(selected_tournaments)]    
-
+    st.subheader('Schedule')
     st.markdown(filtered_data.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
 
@@ -722,7 +722,6 @@ if page == "NBA Match":
     # Filtering data
     df_selected_team = playerstats[(playerstats.Tm.isin(selected_team)) & (playerstats.Pos.isin(selected_pos))]
     
-    st.header('Display Player Stats of Selected Team(s)')
     st.write('Data Dimension: ' + str(df_selected_team.shape[0]) + ' rows and ' + str(df_selected_team.shape[1]) + ' columns.')
     st.markdown(df_selected_team.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
     
