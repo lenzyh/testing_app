@@ -665,6 +665,7 @@ if page == "NBA Match":
     df_important2[['MIN', 'PLUS_MINUS', 'PTS', 'AST', 'REB', 'FG_PCT', 'FG3_PCT']] = df_important2[['MIN', 'PLUS_MINUS', 'PTS', 'AST', 'REB', 'FG_PCT', 'FG3_PCT']].applymap('{:,.2f}'.format)
     st.markdown(df_important2.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
     col1, col2, col3, col4,col5,col6,col7 = st.columns(7)
+    col_width = 350
     with col1: 
         fig_min = px.histogram(df_team, x="MIN")
         fig_min.add_vline(x=df_important['MIN'].values[0],line_color='red')
@@ -721,16 +722,8 @@ if page == "NBA Match":
     
     # Filtering data
     df_selected_team = playerstats[(playerstats.Tm.isin(selected_team)) & (playerstats.Pos.isin(selected_pos))]
-    # Assuming df_selected_team is your DataFrame
-    columns_to_exclude = ['Player', 'Pos', 'Tm']
-
-    # Get a list of columns to convert to float
-    columns_to_convert = [col for col in df_selected_team.columns if col not in columns_to_exclude]
-
-    # Convert columns to float
-    df_selected_team[columns_to_convert] = df_selected_team[columns_to_convert].astype(float)
     st.write('Data Dimension: ' + str(df_selected_team.shape[0]) + ' rows and ' + str(df_selected_team.shape[1]) + ' columns.')
-    st.table(df_selected_team.style.hide(axis="index"))
+    st.markdown(filtered_data.style.hide(axis="index").to_html(), unsafe_allow_html=True)
     
     # Download NBA player stats data
     # https://discuss.streamlit.io/t/how-to-download-file-in-streamlit/1806
