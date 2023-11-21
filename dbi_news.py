@@ -659,7 +659,7 @@ if page == "NBA Match":
      roster)
     df_lineup = df_team[df_team['GROUP_NAME'] == roster]
     df_important = df_lineup[['MIN','PLUS_MINUS','PTS','AST','REB','FG_PCT', 'FG3_PCT']]
-    df_important=df_important.sort_values(by=['MIN','PLUS_MINUS'],ascending=[FALSE,FALSE])
+    df_important=df_important.sort_values(by=['MIN','PLUS_MINUS'],ascending=[False, False])
     #st.markdown(df_important.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
     col1, col2, col3, col4,col5,col6,col7 = st.columns(7)
     with col1: 
