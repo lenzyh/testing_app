@@ -672,7 +672,7 @@ if page == "NBA Match":
         fig_min = px.histogram(df_team, x="MIN")
     
         # Calculate mean value
-        mean_min = df_team['MIN'].mean()
+        mean_min = df_important['MIN'].mean()
     
         # Add mean value as a vertical line
         fig_min.add_vline(x=mean_min, line_color='blue', line_dash="dash", annotation_text=f'Mean: {mean_min:.2f}', annotation_position="bottom right")
