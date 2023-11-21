@@ -661,26 +661,11 @@ if page == "NBA Match":
     df_lineup = df_team[df_team['GROUP_NAME'] == roster]
     
     df_important = df_lineup[['MIN','PLUS_MINUS','PTS','AST','REB','FG_PCT', 'FG3_PCT']]
-    #st.markdown(df_important.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
+    st.markdown(df_important.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
     col1, col2, col3, col4,col5,col6,col7 = st.columns(7)
-    # with col1: 
-    #     fig_min = px.histogram(df_team, x="MIN")
-    #     fig_min.add_vline(x=df_important['MIN'].values[0],line_color='red')
-    #     st.plotly_chart(fig_min, use_container_width=True)
-    with col1:
-        # Plot histogram
+    with col1: 
         fig_min = px.histogram(df_team, x="MIN")
-    
-        # Calculate mean value
-        mean_min = df_important['MIN'].mean()
-    
-        # Add mean value as a vertical line
-        fig_min.add_vline(x=mean_min, line_color='blue', line_dash="dash", annotation_text=f'Mean: {mean_min:.2f}', annotation_position="bottom right")
-    
-        # Add the important value as a red vertical line
-        fig_min.add_vline(x=df_important['MIN'].values[0], line_color='red', annotation_text='Important', annotation_position="top right")
-    
-        # Show the plot
+        fig_min.add_vline(x=df_important['MIN'].values[0],line_color='red')
         st.plotly_chart(fig_min, use_container_width=True)
 
     with col2: 
