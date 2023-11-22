@@ -905,7 +905,7 @@ if page == "NBA Match":
     draw_court(ax, color="blue", lw=2, outer_lines=False)
     # Display the Matplotlib figure in Streamlit
     st.pyplot(fig, use_container_width=True)
-    st.wrtie(f"{player}", ": FG% :", "{0:.3f}".format(player_shotchart_df['SHOT_MADE_FLAG'].sum()/len(player_shotchart_df)), "({0}-{1})".format(player_shotchart_df['SHOT_MADE_FLAG'].sum(),len(player_shotchart_df)))
+    st.write(f"{player}", ": FG% :", "{0:.3f}".format(player_shotchart_df['SHOT_MADE_FLAG'].sum()/len(player_shotchart_df)), "({0}-{1})".format(player_shotchart_df['SHOT_MADE_FLAG'].sum(),len(player_shotchart_df)))
     st.subheader('NBA Player Stats Explorer')
     selected_year = st.selectbox('Year', list(reversed(range(1950,2025))))
     # Web scraping of NBA player stats
