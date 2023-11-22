@@ -949,8 +949,12 @@ if page == "NBA Match":
     
         return ax  
 
-    shotchart=hexmap_chart(player_shotchart_df, league_avg, title=f"{player} Hex Chart 2023-24")
-    st.pyplot(shotchart, use_container_width=True)
+    # Plot the hexmap using Matplotlib and get the figure
+    fig, ax = plt.subplots(figsize=(12, 11))
+    hexmap_chart(player_shotchart_df, league_avg, title=f"{player} Hex Chart 2023-24", ax=ax)
+
+    # Display the Matplotlib figure in Streamlit
+    st.pyplot(fig, use_container_width=True)
     st.subheader('NBA Player Stats Explorer')
     selected_year = st.selectbox('Year', list(reversed(range(1950,2025))))
     # Web scraping of NBA player stats
