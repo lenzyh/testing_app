@@ -651,8 +651,8 @@ if page == "NBA Match":
             # Display the data as a table with clickable links
             df['Home Team'] = df['Home Team'].apply(lambda x: f"<a href='https://www.basketball-reference.com/teams/{x.replace(' ', '_')}' target='_blank'>{x}</a>")
             df['Away Team'] = df['Away Team'].apply(lambda x: f"<a href='https://www.basketball-reference.com/teams/{x.replace(' ', '_')}' target='_blank'>{x}</a>")
-            df['Home Leader Name'] = df['Home Leader Name'].apply(lambda x: f"<a href='https://en.wikipedia.org/wiki/{x.replace(' ', '_')}' target='_blank'>{x}</a>")
-            df['Away Leader Name'] = df['Away Leader Name'].apply(lambda x: f"<a href='https://en.wikipedia.org/wiki/{x.replace(' ', '_')}' target='_blank'>{x}</a>")
+            #df['Home Leader Name'] = df['Home Leader Name'].apply(lambda x: f"<a href='https://en.wikipedia.org/wiki/{x.replace(' ', '_')}' target='_blank'>{x}</a>")
+            #df['Away Leader Name'] = df['Away Leader Name'].apply(lambda x: f"<a href='https://en.wikipedia.org/wiki/{x.replace(' ', '_')}' target='_blank'>{x}</a>")
 
             st.markdown(df.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
 
@@ -903,6 +903,9 @@ if page == "NBA Match":
     fig, ax = plt.subplots(figsize=(12, 11))
     hexmap_chart(player_shotchart_df, league_avg, title=f"{player} Hex Chart 2023-24", ax=ax)
     draw_court(ax, color="blue", lw=2, outer_lines=False)
+    player_id=player_shotchart_df['PLAYER_ID'].unique()
+    player_image_url = f"https://cdn.nba.com/headshots/nba/latest/1040x760/{player_id}.png"
+    player_image = st.image(player_image_url, caption=f"{player}", use_column_width=True)
     # Display the Matplotlib figure in Streamlit
     st.pyplot(fig, use_container_width=True)
     st.write(f"{player}'s Shooting Performance: ", "FG% =", "{0:.3f}".format(player_shotchart_df['SHOT_MADE_FLAG'].sum()/len(player_shotchart_df)), "({0}-{1})".format(player_shotchart_df['SHOT_MADE_FLAG'].sum(),len(player_shotchart_df)))
