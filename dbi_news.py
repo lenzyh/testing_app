@@ -1145,8 +1145,14 @@ if page == "Badminton's Match":
         format="MM.DD.YYYY",
     )
     d
-    formatted_date = d.strftime('%Y-%m-%d')
-    filtered_game_ids = game_ids[game_ids['datetime'].dt.date == formatted_date]
+    # Extract the selected date from the tuple
+    start_date, end_date = d[0], d[1]
+    start_date = start_date.strftime('%Y-%m-%d')
+    end_date = end_date.strftime('%Y-%m-%d')
+    filtered_game_ids = game_ids[(game_ids['datetime'] >= start_date) & (game_ids['datetime'] <= end_date)]
+    # Display the selected date in the desired format
+    #formatted_date = selected_date.strftime('%Y-%m-%d')
+    #filtered_game_ids = game_ids[game_ids['datetime'].dt.date == formatted_date]
     game_date=st.selectbox('Select the Match', filtered_game_ids['Match'].unique())
     filtered_game_ids_2=filtered_game_ids[filtered_game_ids['Match']==game_date]
     game_id=filtered_game_ids_2['id'][0]
