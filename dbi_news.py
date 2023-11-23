@@ -582,7 +582,8 @@ if page == "Football Match":
     st.image(buffer)
 
     game_ids = pd.DataFrame()
-    for year in [2023]:
+    # Loop through years 2022 and 2023
+    for year in [2022, 2023]:
         url = f'https://understat.com/league/{league_selected}/{year}'
         r = requests.get(url)
         soup = BeautifulSoup(r.content, 'lxml')
@@ -593,9 +594,14 @@ if page == "Football Match":
         json_data = strings[ind_start:ind_end]
         json_data = json_data.encode('utf8').decode('unicode_escape')
         data = json.loads(json_data)
-        game_ids = pd.concat([game_ids,pd.DataFrame(data).sort_values('datetime')])
+        year_data = pd.DataFrame(data).sort_values('datetime')
+        
         # Changing the data type to int32
-        game_ids = game_ids.astype({'id': 'int32'})
+        year_data = year_data.astype({'id': 'int32'})
+        
+        # Concatenate the data to the overall DataFrame
+        game_ids = pd.concat([game_ids, year_data])
+    game_ids.reset_index(drop=True, inplace=True)
     game_ids['home'] = game_ids['h'].apply(lambda x: x.get('title') if pd.notnull(x) else None)
     game_ids['away'] = game_ids['a'].apply(lambda x: x.get('title') if pd.notnull(x) else None)
     game_ids['Match']= game_ids['home'] + ' -vs- ' + game_ids['away']
