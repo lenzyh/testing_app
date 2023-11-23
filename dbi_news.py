@@ -1432,44 +1432,87 @@ if page == "Badminton's Match":
     saved_shot = shots[shots['result']=='SavedShot']
     missed_shot = shots[shots['result']=='MissedShot']
     goals = goal[goal.columns[0]].count().tolist()
-
-    fig, ax = plt.subplots(figsize=(20, 10))
-    football_pitch(orientation="vertical",aspect="half",line_color="black",ax=ax,axis="off")
+    st.button("Career's Shoot")
+    if st.button=="Career's Shoot":
+        fig, ax = plt.subplots(figsize=(20, 10))
+        football_pitch(orientation="vertical",aspect="half",line_color="black",ax=ax,axis="off")
+        
+        #Drawing a full pitch horizontally
+        z = goal['xG'].tolist()
+        z1 = [500 * i for i in z] # This is to scale the "xG" values for plotting
+        color = {'Goal':'cyan', 'MissedShots':'red', 'BlockedShot':'tomato', 'SavedShot':'black', 'ShotOnPost':'Yellow'}
+        ## markers = {'Goal':'Star', 'MissedShots':'X', 'BlockedShot':'O', 'SavedShot':'V', 'ShotOnPost':'S'}
+        
+        # Plotting the goals, the missed chances shot on post etc 
+        plt.scatter(y=goal["X1"],x=goal["Y1"],s=goal['xG']*720, marker='o',color='cyan',edgecolors="black",label='Goals')
+        plt.scatter(y=shot_on_post["X1"],x=shot_on_post["Y1"],s=shot_on_post['xG']*720, marker='o',color='yellow',edgecolors="black",label='Shot on Post',alpha=0.5)
+        plt.scatter(y=missed_shot["X1"],x=missed_shot["Y1"],s=missed_shot['xG']*720, marker='o',color='red',edgecolors="black",label='Missed Shot',alpha=0.5)
+        plt.scatter(y=blocked_shot["X1"],x=blocked_shot["Y1"],s=blocked_shot['xG']*720, marker='o',color='green',edgecolors="black",label='Blocked Shot',alpha=0.5)
+        plt.scatter(y=saved_shot["X1"],x=saved_shot["Y1"],s=saved_shot['xG']*720, marker='o',color='purple',edgecolors="black",label='Saved Shot',alpha=0.5)
+        #legend 
+        # another way to do it 
+        #ax.legend(loc='upper center', bbox_to_anchor= (0.13, 0.87),
+                    #borderaxespad=0, frameon=False)
+        legend = ax.legend(loc="upper center",bbox_to_anchor= (0.14, 0.88),labelspacing=1.3,prop={'weight':'bold','size':11})
+        legend.legendHandles[0]._sizes = [500]
+        legend.legendHandles[1]._sizes = [500]
+        legend.legendHandles[2]._sizes = [500]
+        legend.legendHandles[3]._sizes = [500]
+        legend.legendHandles[4]._sizes = [500]
+        
+        # xG Size 
+        mSize = [0.05,0.10,0.2,0.4,0.6,0.8]
+        mSizeS = [720 * i for i in mSize]
+        mx = [60,60,60,60,60,60]
+        my = [92,94,96,98,100,102]
+        plt.scatter(mx,my,s=mSizeS,facecolors="cyan", edgecolor="black")
+        for i in range(len(mx)):
+            plt.text(mx[i]+ 2.8, my[i], mSize[i], fontsize=12, color="black",ha="center", va="center",fontweight='bold')
+        # Annotation text
+        fig_text(0.38,0.91, s="Career Shots\n", fontsize = 25, fontweight = "bold",c='cyan')
+        fig_text(0.47,0.37, s="Shots:\n\nxGcum:\n\nxG per shot:\n\nGoals: ", fontsize = 12, fontweight = "bold",c='black')
+        fig_text(0.54,0.37, s="<{}\n\n{}\n\n{}\n\n{}>".format(total_shots,xGcum,xG_per_shot,goals), fontsize = 12, fontweight = "bold",c='cyan')
     
-    #Drawing a full pitch horizontally
-    z = goal['xG'].tolist()
-    z1 = [500 * i for i in z] # This is to scale the "xG" values for plotting
-    color = {'Goal':'cyan', 'MissedShots':'red', 'BlockedShot':'tomato', 'SavedShot':'black', 'ShotOnPost':'Yellow'}
-    ## markers = {'Goal':'Star', 'MissedShots':'X', 'BlockedShot':'O', 'SavedShot':'V', 'ShotOnPost':'S'}
-    
-    # Plotting the goals, the missed chances shot on post etc 
-    plt.scatter(y=goal["X1"],x=goal["Y1"],s=goal['xG']*720, marker='o',color='cyan',edgecolors="black",label='Goals')
-    plt.scatter(y=shot_on_post["X1"],x=shot_on_post["Y1"],s=shot_on_post['xG']*720, marker='o',color='yellow',edgecolors="black",label='Shot on Post',alpha=0.5)
-    plt.scatter(y=missed_shot["X1"],x=missed_shot["Y1"],s=missed_shot['xG']*720, marker='o',color='red',edgecolors="black",label='Missed Shot',alpha=0.5)
-    plt.scatter(y=blocked_shot["X1"],x=blocked_shot["Y1"],s=blocked_shot['xG']*720, marker='o',color='green',edgecolors="black",label='Blocked Shot',alpha=0.5)
-    plt.scatter(y=saved_shot["X1"],x=saved_shot["Y1"],s=saved_shot['xG']*720, marker='o',color='purple',edgecolors="black",label='Saved Shot',alpha=0.5)
-    #legend 
-    # another way to do it 
-    #ax.legend(loc='upper center', bbox_to_anchor= (0.13, 0.87),
-                #borderaxespad=0, frameon=False)
-    legend = ax.legend(loc="upper center",bbox_to_anchor= (0.14, 0.88),labelspacing=1.3,prop={'weight':'bold','size':11})
-    legend.legendHandles[0]._sizes = [500]
-    legend.legendHandles[1]._sizes = [500]
-    legend.legendHandles[2]._sizes = [500]
-    legend.legendHandles[3]._sizes = [500]
-    legend.legendHandles[4]._sizes = [500]
-    
-    # xG Size 
-    mSize = [0.05,0.10,0.2,0.4,0.6,0.8]
-    mSizeS = [720 * i for i in mSize]
-    mx = [60,60,60,60,60,60]
-    my = [92,94,96,98,100,102]
-    plt.scatter(mx,my,s=mSizeS,facecolors="cyan", edgecolor="black")
-    for i in range(len(mx)):
-        plt.text(mx[i]+ 2.8, my[i], mSize[i], fontsize=12, color="black",ha="center", va="center",fontweight='bold')
-    # Annotation text
-    fig_text(0.38,0.91, s="Career Shots\n", fontsize = 25, fontweight = "bold",c='cyan')
-    fig_text(0.47,0.37, s="Shots:\n\nxGcum:\n\nxG per shot:\n\nGoals: ", fontsize = 12, fontweight = "bold",c='black')
-    fig_text(0.54,0.37, s="<{}\n\n{}\n\n{}\n\n{}>".format(total_shots,xGcum,xG_per_shot,goals), fontsize = 12, fontweight = "bold",c='cyan')
-
-    st.pyplot(fig)
+        st.pyplot(fig)
+    st.button("Career's Goal")
+    if st.button=="Career's Goal":
+        head = goal[goal['shotType']=='Head']
+        left_foot = goal[goal['shotType']=='LeftFoot']
+        right_foot = goal[goal['shotType']=='RightFoot']
+        head = head[head.columns[0]].count().tolist()
+        right_foot = right_foot[right_foot.columns[0]].count().tolist()
+        left_foot = left_foot[left_foot.columns[0]].count().tolist()
+        fig, ax = plt.subplots(figsize=(20, 10))
+        football_pitch(orientation="vertical",aspect="half",line_color="black",ax=ax,axis="off")
+        
+        #Drawing a full pitch horizontally
+        z = goal['xG'].tolist()
+        z1 = [500 * i for i in z] # This is to scale the "xG" values for plotting
+        colors = {'Goal':'cyan', 'MissedShots':'red', 'BlockedShot':'tomato', 'SavedShot':'black', 'ShotOnPost':'Yellow'}
+        ## markers = {'Goal':'Star', 'MissedShots':'X', 'BlockedShot':'O', 'SavedShot':'V', 'ShotOnPost':'S'}
+        
+        # Plotting the goals, the missed chances shot on post etc 
+        plt.scatter(y=goal[goal['shotType']=='Head']['X1'],x=goal[goal['shotType']=='Head']['Y1'],s=goal[goal['shotType']=='Head']['xG']*720, marker='o',color='cyan',edgecolors="black",label='Head')
+        plt.scatter(y=goal[goal['shotType']=='LeftFoot']['X1'],x=goal[goal['shotType']=='LeftFoot']['Y1'],s=goal[goal['shotType']=='LeftFoot']['xG']*720, marker='o',color='tomato',edgecolors="black",label='Left Foot')
+        plt.scatter(y=goal[goal['shotType']=='RightFoot']['X1'],x=goal[goal['shotType']=='RightFoot']['Y1'],s=goal[goal['shotType']=='RightFoot']['xG']*720, marker='o',color='yellow',edgecolors="black",label='Right Foot')
+        
+        # xG Size
+        mSize = [0.05,0.10,0.2,0.4,0.6,0.8]
+        mSizeS = [720 * i for i in mSize]
+        mx = [60,60,60,60,60,60]
+        my = [92,94,96,98,100,102]
+        plt.scatter(mx,my,s=mSizeS,facecolors="cyan", edgecolor="black")
+        for i in range(len(mx)):
+            plt.text(mx[i]+ 2.5, my[i], mSize[i], fontsize=12, color="black",ha="center", va="center",fontweight='bold')
+        
+        # Pitch map text
+        fig_text(0.38,0.91, s="Career Goals\n", fontsize = 25, fontweight = "bold",c='cyan')
+        fig_text(0.47,0.37, s="Goals:\n\nRight Foot:\n\nLeft Foot:\n\nHead: ", fontsize = 15, fontweight = "bold",c='black')
+        fig_text(0.54,0.37, s=" <{}>\n\n <{}>\n\n < {}>\n\n  <{}>".format(goals,right_foot,left_foot,head), fontsize = 15, fontweight = "light",highlight_textprops=[{"color":'cyan'}, {'color':"yellow"}, {'color':"tomato"}, {'color':"cyan"}])
+        
+        # Legend
+        legend = ax.legend(loc="upper center",bbox_to_anchor= (0.13, 0.87))
+        legend.legendHandles[0]._sizes = [1000]
+        legend.legendHandles[1]._sizes = [1000]
+        legend.legendHandles[2]._sizes = [1000]
+        st.pyplot(fig)
