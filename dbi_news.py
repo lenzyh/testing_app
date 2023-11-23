@@ -524,7 +524,8 @@ if page == "Football Match":
     df_league = df_league.infer_objects()
     table = df_league.groupby(['title']).agg({'wins': 'sum', 'draws': 'sum', 'loses': 'sum', 'scored': 'sum', 'missed': 'sum', 'pts': 'sum', 'xG': 'sum', 'xGA': 'sum', 'xpts': 'sum', 'npxG': 'sum', 'npxGA': 'sum', 'deep': 'sum', 'deep_allowed': 'sum'}).reset_index()
     standing=table[['title','wins','draws','loses','scored','pts','xG','xGA','xpts']]
-    standing=standing.sort_values(by='pts',ascending=False)
+    standing.rename(columns={'title':'Team'},inplace=True)
+    standing=standing.sort_values(by=['pts','scored'],ascending=[False,False])
     st.subheader(f'Standing in {league_selected}')
     st.markdown(standing.style.hide(axis="index").to_html(), unsafe_allow_html=True)
     # Create a new DataFrame for matchups
