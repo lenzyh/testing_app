@@ -1390,5 +1390,81 @@ if page == "Badminton's Match":
         plt.text(xx[i], yy[i], xx_yy[i], fontsize=12, color="black", ha="center", va="center", fontweight='bold')
     
     # Display the plot in Streamlit
-    st.subheader(f'{game_}'s Shotmap')
+    st.subheader(f"{game_}'s Shotmap")
+    st.pyplot(fig)
+
+    st.subheader('Player Shooting Summary')
+    
+    # Entering Player ID link
+
+    selected_player=st.selectbox('Select Player :', player_list['player_name'])
+    selected_player2=player_list[player_list['player_name']==selected_player]
+    player_id=selected_player2['id']
+    link = f"https://understat.com/player/{player_id}"
+    res = requests.get(link)
+    soup = BeautifulSoup(res.content,'lxml')
+    scripts = soup.find_all('script')
+    # Get the grouped stats data, it's the second script executed in order
+    strings = scripts[3].string
+    # Getting rid of unnecessary characters from json data
+    ind_start = strings.index("('")+2 
+    ind_end = strings.index("')") 
+    json_data = strings[ind_start:ind_end] 
+    json_data = json_data.encode('utf8').decode('unicode_escape')
+    data = json.loads(json_data)
+
+    shots['X1'] = (shots['X']/100)*105*100
+    shots['Y1'] = (shots['Y']/100)*68*100
+    # Original X and Y
+    shots['X'] = (shots['X']/100)*105*100
+    shots['Y'] = (shots['Y']/100)*68*100
+    total_shots = shots[shots.columns[0]].count().tolist()
+    xGcum = np.round(max(np.cumsum(shots['xG'])),3).tolist()
+    xG_per_shot = np.round(max(np.cumsum(shots['xG']))/(shots[shots.columns[0]].count()),3).tolist()
+    goal = shots[shots['result']=='Goal']
+    shot_on_post = shots[shots['result']=='ShotOnPost']
+    blocked_shot = shots[shots['result']=='BlockedShot']
+    saved_shot = shots[shots['result']=='SavedShot']
+    missed_shot = shots[shots['result']=='MissedShot']
+    goals = goal[goal.columns[0]].count().tolist()
+
+    fig, ax = plt.subplots(figsize=(20, 10))
+    football_pitch(orientation="vertical",aspect="half",line_color="black",ax=ax,axis="off")
+    
+    #Drawing a full pitch horizontally
+    z = goal['xG'].tolist()
+    z1 = [500 * i for i in z] # This is to scale the "xG" values for plotting
+    color = {'Goal':'cyan', 'MissedShots':'red', 'BlockedShot':'tomato', 'SavedShot':'black', 'ShotOnPost':'Yellow'}
+    ## markers = {'Goal':'Star', 'MissedShots':'X', 'BlockedShot':'O', 'SavedShot':'V', 'ShotOnPost':'S'}
+    
+    # Plotting the goals, the missed chances shot on post etc 
+    plt.scatter(y=goal["X1"],x=goal["Y1"],s=goal['xG']*720, marker='o',color='cyan',edgecolors="black",label='Goals')
+    plt.scatter(y=shot_on_post["X1"],x=shot_on_post["Y1"],s=shot_on_post['xG']*720, marker='o',color='yellow',edgecolors="black",label='Shot on Post',alpha=0.5)
+    plt.scatter(y=missed_shot["X1"],x=missed_shot["Y1"],s=missed_shot['xG']*720, marker='o',color='red',edgecolors="black",label='Missed Shot',alpha=0.5)
+    plt.scatter(y=blocked_shot["X1"],x=blocked_shot["Y1"],s=blocked_shot['xG']*720, marker='o',color='green',edgecolors="black",label='Blocked Shot',alpha=0.5)
+    plt.scatter(y=saved_shot["X1"],x=saved_shot["Y1"],s=saved_shot['xG']*720, marker='o',color='purple',edgecolors="black",label='Saved Shot',alpha=0.5)
+    #legend 
+    # another way to do it 
+    #ax.legend(loc='upper center', bbox_to_anchor= (0.13, 0.87),
+                #borderaxespad=0, frameon=False)
+    legend = ax.legend(loc="upper center",bbox_to_anchor= (0.14, 0.88),labelspacing=1.3,prop={'weight':'bold','size':11})
+    legend.legendHandles[0]._sizes = [500]
+    legend.legendHandles[1]._sizes = [500]
+    legend.legendHandles[2]._sizes = [500]
+    legend.legendHandles[3]._sizes = [500]
+    legend.legendHandles[4]._sizes = [500]
+    
+    # xG Size 
+    mSize = [0.05,0.10,0.2,0.4,0.6,0.8]
+    mSizeS = [720 * i for i in mSize]
+    mx = [60,60,60,60,60,60]
+    my = [92,94,96,98,100,102]
+    plt.scatter(mx,my,s=mSizeS,facecolors="cyan", edgecolor="black")
+    for i in range(len(mx)):
+        plt.text(mx[i]+ 2.8, my[i], mSize[i], fontsize=12, color="black",ha="center", va="center",fontweight='bold')
+    # Annotation text
+    fig_text(0.38,0.91, s="Career Shots\n", fontsize = 25, fontweight = "bold",c='cyan')
+    fig_text(0.47,0.37, s="Shots:\n\nxGcum:\n\nxG per shot:\n\nGoals: ", fontsize = 12, fontweight = "bold",c='black')
+    fig_text(0.54,0.37, s="<{}\n\n{}\n\n{}\n\n{}>".format(total_shots,xGcum,xG_per_shot,goals), fontsize = 12, fontweight = "bold",c='cyan')
+
     st.pyplot(fig)
