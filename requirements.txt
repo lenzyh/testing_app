@@ -13,3 +13,5 @@ plotly
 lxml
 scipy
 seaborn
+mplsoccer
+highlight_text
