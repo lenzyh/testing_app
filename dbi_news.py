@@ -905,7 +905,7 @@ if page == "NBA Match":
     draw_court(ax, color="blue", lw=2, outer_lines=False)
     player_id=player_shotchart_df['PLAYER_ID'].unique()[0]
     player_image_url = f"https://cdn.nba.com/headshots/nba/latest/1040x760/{player_id}.png"
-    player_image = st.image(player_image_url, width=20)
+    player_image = st.image(player_image_url)
     # Display the Matplotlib figure in Streamlit
     st.pyplot(fig, use_container_width=True)
     st.write(f"{player}'s Shooting Performance: ", "FG% =", "{0:.3f}".format(player_shotchart_df['SHOT_MADE_FLAG'].sum()/len(player_shotchart_df)), "({0}-{1})".format(player_shotchart_df['SHOT_MADE_FLAG'].sum(),len(player_shotchart_df)))
