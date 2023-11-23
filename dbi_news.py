@@ -1390,4 +1390,5 @@ if page == "Badminton's Match":
         plt.text(xx[i], yy[i], xx_yy[i], fontsize=12, color="black", ha="center", va="center", fontweight='bold')
     
     # Display the plot in Streamlit
+    st.subheader(f'{game_}'s Shotmap')
     st.pyplot(fig)
