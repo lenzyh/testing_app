@@ -1432,8 +1432,7 @@ if page == "Badminton's Match":
     saved_shot = shots[shots['result']=='SavedShot']
     missed_shot = shots[shots['result']=='MissedShot']
     goals = goal[goal.columns[0]].count().tolist()
-    st.button("Career's Shoot")
-    if st.button=="Career's Shoot":
+    if st.button("Career's Shoot"):
         fig, ax = plt.subplots(figsize=(20, 10))
         football_pitch(orientation="vertical",aspect="half",line_color="black",ax=ax,axis="off")
         
@@ -1474,8 +1473,7 @@ if page == "Badminton's Match":
         fig_text(0.54,0.37, s="<{}\n\n{}\n\n{}\n\n{}>".format(total_shots,xGcum,xG_per_shot,goals), fontsize = 12, fontweight = "bold",c='cyan')
     
         st.pyplot(fig)
-    st.button("Career's Goal")
-    if st.button=="Career's Goal":
+    if st.button("Career's Goal"):
         head = goal[goal['shotType']=='Head']
         left_foot = goal[goal['shotType']=='LeftFoot']
         right_foot = goal[goal['shotType']=='RightFoot']
