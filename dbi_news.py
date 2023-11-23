@@ -1136,8 +1136,7 @@ if page == "Badminton's Match":
     # Display the selected date in the desired format
     game_=st.selectbox('Select the Match', game_ids['Match'].unique())
     filtered_game_ids_2=game_ids[game_ids['Match']==game_]
-    st.table(filtered_game_ids_2)
-    #game_id=filtered_game_ids_2['id'][0]
+    game_id=st.selectbox('Select the Game ID (ordering by match date', filtered_game_ids_2['id'])
     # # Entering match link
     # link = f"https://understat.com/match/{game_id}"
     # res = requests.get(link)
