@@ -1088,17 +1088,31 @@ if page == "Badminton's Match":
     # Calculate xG differential and set color based on the sign
     matchups_df2['xG_diff_color'] = np.where(matchups_df2['xG_diff'] < 0, 'red', 'green')
     
+    from matplotlib.offsetbox import AnchoredText
+    
+    # Assuming matchups_df2 DataFrame and other functions are already defined
+    
     # Plot the xG differential for each team
-    plt.figure(figsize=(12, 8))
+    fig, ax = plt.subplots(figsize=(12, 8))
     bars = plt.barh(matchups_df2['away_team'], matchups_df2['xG_diff'], color=matchups_df2['xG_diff_color'])
-    plt.ylabel('Opp Team',fontsize= 20,fontweight = "bold")
+    plt.ylabel('Opp Team', fontsize=20, fontweight="bold")
     plt.grid(axis='x')
     
-    plt.hlines(y=matchups_df2['away_team'], xmin=0, xmax=matchups_df2['xG_diff'], color='cyan', alpha=0.4, linewidth=8,label='Positive xG')
-    plt.hlines(y=matchups_df2['away_team'], xmin=0, xmax=matchups_df2['xG_diff'], color='red', alpha=0.4, linewidth=8,label='Negative xG')
-    # Display the plot
-    fig_text(0.08,1.03, s=f"{team_selected} 2023 Season xG Differential\n", fontsize = 25, fontweight = "light")
-    fig_text(0.08,0.97, s=" <Positive xG> vs <Negative xG>",highlight_textprops=[{"color":'cyan'}, {'color':"red"}], fontsize = 20, fontweight="light")
-    fig_text(0.45,0.01, s="xG Differential\n", fontsize = 20, fontweight = "bold", color = "black")
+    plt.hlines(y=matchups_df2['away_team'], xmin=0, xmax=matchups_df2['xG_diff'], color='cyan', alpha=0.4, linewidth=8,
+               label='Positive xG')
+    plt.hlines(y=matchups_df2['away_team'], xmin=0, xmax=matchups_df2['xG_diff'], color='red', alpha=0.4, linewidth=8,
+               label='Negative xG')
     
-    plt.show()
+    # Display the plot
+    ax.text(0.08, 1.03, s=f"{team_selected} 2023 Season xG Differential\n", fontsize=25, fontweight="light")
+    ax.text(0.08, 0.97, s=" <Positive xG> vs <Negative xG>",
+            color='cyan', alpha=0.4, fontsize=20, fontweight="light")
+    ax.text(0.45, 0.01, s="xG Differential\n", fontsize=20, fontweight="bold", color="black")
+    
+    # Save the plot to a BytesIO buffer
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png')
+    plt.close()
+    
+    # Display the Matplotlib plot in Streamlit
+    st.image(buffer)
