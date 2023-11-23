@@ -1145,7 +1145,8 @@ if page == "Badminton's Match":
         format="MM.DD.YYYY",
     )
     d
-    filtered_game_ids = game_ids[pd.to_datetime(game_ids['datetime']).dt.date == d]
+    formatted_date = d.strftime('%Y-%m-%d')
+    filtered_game_ids = game_ids[game_ids['datetime'].dt.date == formatted_date]
     game_date=st.selectbox('Select the Match', filtered_game_ids['Match'].unique())
     filtered_game_ids_2=filtered_game_ids[filtered_game_ids['Match']==game_date]
     game_id=filtered_game_ids_2['id'][0]
