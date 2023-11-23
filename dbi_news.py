@@ -1037,15 +1037,7 @@ if page == "Badminton's Match":
         dfs.append(df_player)
 
         player_list=df_player[['id','player_name','team_title']]
-    league_selected=st.selectbox('Select League', ['EPL','La Liga','Bundesliga','Serie A','Ligue 1'])
-    if league_selected=='La Liga':
-        league_selected='la_liga'
-    if league_selected=='Serie A':
-        league_selected='serie_a'
-    if league_selected=='Ligue 1':
-        league_selected='Ligue_1'
-    else:
-        league_selected
+    league_selected=st.selectbox('Select League', ['EPL','la_liga','Bundesliga','serie_a','Ligue_1'])
     # Entering the league's  link
     link = f"https://understat.com/league/{league_selected}"
     res = requests.get(link)
@@ -1091,7 +1083,7 @@ if page == "Badminton's Match":
     # Create the matchups DataFrame
     matchups_df = pd.DataFrame(matchup_data)
     matchups_df['xG_diff']=matchups_df['xG']-matchups_df['opp_xG']
-    team_selected=st.selectbox('Select Team', matchups_df['home_team'].unique()[0])
+    team_selected=st.selectbox('Select Team', matchups_df['home_team'].unique())
     matchups_df2=matchups_df[matchups_df['home_team']==team_selected]
     # Calculate xG differential and set color based on the sign
     matchups_df2['xG_diff_color'] = np.where(matchups_df2['xG_diff'] < 0, 'red', 'green')
