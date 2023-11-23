@@ -1022,6 +1022,57 @@ if page == "NBA Match":
     img_link=href_links[0].split('.')[0].split('/')[-1]
     st.image(f'https://www.basketball-reference.com/req/202106291/images/headshots/{img_link}.jpg')
     st.write(f"{player_names[0]} has been averaging {parentheses_text} PPG for this season :fire:")
+    st.subheader("NBA's Standings")
+    st.subheader("Western Conference")
+    url = "https://www.basketball-reference.com/friv/playoff_prob.html"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    
+    table = soup.find("table", {"id": "projected_standings_w"})
+    
+    headers = [
+        "Western Conference", "W", "L", "W/L%", "SOS", "rSOS", "SRS",
+        "Current", "Remain", "Best", "Worst", "Playoffs", "Division",
+        "1", "2", "3", "4", "5", "6", "7", "8", "",
+        "1-6", "7", "8", "9", "10", "Out", "",
+        "Win Conf", "Win Finals"
+    ]
+    
+    data = []
+    rows = table.find_all("tr")
+    for row in rows:
+        cells = row.find_all("td")
+        row_data = [cell.text.strip() for cell in cells]
+        data.append(row_data)
+    
+    w_df = pd.DataFrame(data, columns=headers)
+    w_df = w_df.dropna()
+    st.markdown(w_df.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
+    st.subheader('Eastern Conference')
+    url = "https://www.basketball-reference.com/friv/playoff_prob.html"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    
+    table = soup.find("table", {"id": "projected_standings_e"})
+    
+    headers = [
+        "Eastern Conference", "W", "L", "W/L%", "SOS", "rSOS", "SRS",
+        "Current", "Remain", "Best", "Worst", "Playoffs", "Division",
+        "1", "2", "3", "4", "5", "6", "7", "8", "",
+        "1-6", "7", "8", "9", "10", "Out", "",
+        "Win Conf", "Win Finals"
+    ]
+    
+    data = []
+    rows = table.find_all("tr")
+    for row in rows:
+        cells = row.find_all("td")
+        row_data = [cell.text.strip() for cell in cells]
+        data.append(row_data)
+    
+    e_df = pd.DataFrame(data, columns=headers)
+    e_df = e_df.dropna()
+    st.markdown(e_df.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
     # Create hyperlinks for the Home Team and Away Team columns
     st.subheader(f"Schedule")
     year=(date.today()+ timedelta(days=365)).strftime('%Y')
