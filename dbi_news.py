@@ -1413,7 +1413,7 @@ if page == "Badminton's Match":
     json_data = strings[ind_start:ind_end] 
     json_data = json_data.encode('utf8').decode('unicode_escape')
     data = json.loads(json_data)
-    shots = pd.DataFrame(data) # Aleksander Isak shot data
+    shots = pd.DataFrame(data) #shot data
     # Changing data type
     shots['xG'] = shots['xG'].astype('float64')
     shots['X'] = shots['X'].astype('float64')
@@ -1468,7 +1468,7 @@ if page == "Badminton's Match":
         for i in range(len(mx)):
             plt.text(mx[i]+ 2.8, my[i], mSize[i], fontsize=12, color="black",ha="center", va="center",fontweight='bold')
         # Annotation text
-        fig_text(0.38,0.91, s="Career Shots\n", fontsize = 25, fontweight = "bold",c='cyan')
+        fig_text(0.38,0.91, s=f"{selected_player} Career Shots\n", fontsize = 25, fontweight = "bold",c='cyan')
         fig_text(0.47,0.37, s="Shots:\n\nxGcum:\n\nxG per shot:\n\nGoals: ", fontsize = 12, fontweight = "bold",c='black')
         fig_text(0.54,0.37, s="<{}\n\n{}\n\n{}\n\n{}>".format(total_shots,xGcum,xG_per_shot,goals), fontsize = 12, fontweight = "bold",c='cyan')
     
@@ -1504,7 +1504,7 @@ if page == "Badminton's Match":
             plt.text(mx[i]+ 2.5, my[i], mSize[i], fontsize=12, color="black",ha="center", va="center",fontweight='bold')
         
         # Pitch map text
-        fig_text(0.38,0.91, s="Career Goals\n", fontsize = 25, fontweight = "bold",c='cyan')
+        fig_text(0.38,0.91, s=f"{selected_player} Career Goals\n", fontsize = 25, fontweight = "bold",c='cyan')
         fig_text(0.47,0.37, s="Goals:\n\nRight Foot:\n\nLeft Foot:\n\nHead: ", fontsize = 15, fontweight = "bold",c='black')
         fig_text(0.54,0.37, s=" <{}>\n\n <{}>\n\n < {}>\n\n  <{}>".format(goals,right_foot,left_foot,head), fontsize = 15, fontweight = "light",highlight_textprops=[{"color":'cyan'}, {'color':"yellow"}, {'color':"tomato"}, {'color':"cyan"}])
         
