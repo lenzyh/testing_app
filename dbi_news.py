@@ -5,6 +5,7 @@ from nba_api.live.nba.endpoints import scoreboard
 from PIL import Image
 from wordcloud import WordCloud
 from datetime import date, datetime, timedelta
+import io
 from io import BytesIO
 from bs4 import BeautifulSoup
 import base64
