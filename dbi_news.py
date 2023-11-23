@@ -1105,7 +1105,7 @@ if page == "Badminton's Match":
                label='Negative xG')
     
     # Display the plot
-    ax.text(0.08, 1.03, s=f"{team_selected} 2023 Season xG Differential\n", fontsize=25, fontweight="light")
+
     ax.text(0.08, 0.97, s=" <Positive xG> vs <Negative xG>",
             color='cyan', alpha=0.4, fontsize=20, fontweight="light")
     ax.text(0.45, 0.01, s="xG Differential\n", fontsize=20, fontweight="bold", color="black")
@@ -1116,4 +1116,6 @@ if page == "Badminton's Match":
     plt.close()
     
     # Display the Matplotlib plot in Streamlit
+    st.write(f"{team_selected} 2023 Season xG Differential")
+    st.write("<Positive xG> vs <Negative xG>")
     st.image(buffer)
