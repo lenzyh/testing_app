@@ -1132,281 +1132,263 @@ if page == "Badminton's Match":
     game_ids['Match']= game_ids['home'] + ' -vs- ' + game_ids['away']
     game_ids['datetime'] = pd.to_datetime(game_ids['datetime']) + pd.Timedelta(hours=7)
     game_ids=game_ids[['id','Match','datetime']]
-    import datetime
-    today = datetime.datetime.now()
-    start = datetime.date(today.year, 1, 1)
-    end = datetime.date(today.year+1, 12, 31)
-    ## Range selector
-    d = st.date_input(
-        "Select your vacation for next year",
-        (start, datetime.date(start.year, 4, 30)),
-        start,
-        end,
-        format="MM.DD.YYYY",
-    )
-    d
-    # Extract the selected date from the tuple
-    start_date, end_date = d[0], d[1]
-    start_date = start_date.strftime('%Y-%m-%d')
-    end_date = end_date.strftime('%Y-%m-%d')
-    filtered_game_ids = game_ids[(game_ids['datetime'] >= start_date) & (game_ids['datetime'] <= end_date)]
+
     # Display the selected date in the desired format
-    #formatted_date = selected_date.strftime('%Y-%m-%d')
-    #filtered_game_ids = game_ids[game_ids['datetime'].dt.date == formatted_date]
-    game_date=st.selectbox('Select the Match', filtered_game_ids['Match'].unique())
-    filtered_game_ids_2=filtered_game_ids[filtered_game_ids['Match']==game_date]
-    game_id=filtered_game_ids_2['id'][0]
-    # Entering match link
-    link = f"https://understat.com/match/{game_id}"
-    res = requests.get(link)
-    soup = BeautifulSoup(res.content,'lxml')
-    scripts = soup.find_all('script')
-    # Get the shotsData, it's the second script executed in order
-    strings = scripts[1].string 
-    # Getting rid of unnecessary characters from json data
-    ind_start = strings.index("('")+2 
-    ind_end = strings.index("')") 
-    json_data = strings[ind_start:ind_end] 
-    json_data = json_data.encode('utf8').decode('unicode_escape')
-    data = json.loads(json_data)
+    game_=st.selectbox('Select the Match', game_ids['Match'].unique())
+    filtered_game_ids_2=game_ids[game_ids['Match']==game_]
+    st.table(filtered_game_ids_2)
+    #game_id=filtered_game_ids_2['id'][0]
+    # # Entering match link
+    # link = f"https://understat.com/match/{game_id}"
+    # res = requests.get(link)
+    # soup = BeautifulSoup(res.content,'lxml')
+    # scripts = soup.find_all('script')
+    # # Get the shotsData, it's the second script executed in order
+    # strings = scripts[1].string 
+    # # Getting rid of unnecessary characters from json data
+    # ind_start = strings.index("('")+2 
+    # ind_end = strings.index("')") 
+    # json_data = strings[ind_start:ind_end] 
+    # json_data = json_data.encode('utf8').decode('unicode_escape')
+    # data = json.loads(json_data)
 
-    def football_pitch(x_min=0, x_max=105,
-                   y_min=0, y_max=68,
-                   pitch_color="#f0f0f0",
-                   line_color='black',
-                   line_thickness=1.5,
-                   point_size=20,
-                   orientation="horizontal",
-                   aspect="full",
-                   axis='off',
-                   ax=None
-                   ):
+    # def football_pitch(x_min=0, x_max=105,
+    #                y_min=0, y_max=68,
+    #                pitch_color="#f0f0f0",
+    #                line_color='black',
+    #                line_thickness=1.5,
+    #                point_size=20,
+    #                orientation="horizontal",
+    #                aspect="full",
+    #                axis='off',
+    #                ax=None
+    #                ):
     
-        if not ax:
-            raise TypeError("This function is intended to be used with an existing fig and ax in order to allow flexibility in plotting of various sizes and in subplots.")
+    #     if not ax:
+    #         raise TypeError("This function is intended to be used with an existing fig and ax in order to allow flexibility in plotting of various sizes and in subplots.")
     
     
-        if orientation.lower().startswith("h"):
-            first = 0
-            second = 1
-            arc_angle = 0
+    #     if orientation.lower().startswith("h"):
+    #         first = 0
+    #         second = 1
+    #         arc_angle = 0
     
-            if aspect == "half":
-                ax.set_xlim(x_max / 2, x_max + 5)
+    #         if aspect == "half":
+    #             ax.set_xlim(x_max / 2, x_max + 5)
     
-        elif orientation.lower().startswith("v"):
-            first = 1
-            second = 0
-            arc_angle = 90
+    #     elif orientation.lower().startswith("v"):
+    #         first = 1
+    #         second = 0
+    #         arc_angle = 90
     
-            if aspect == "half":
-                ax.set_ylim(x_max / 2, x_max + 5)
+    #         if aspect == "half":
+    #             ax.set_ylim(x_max / 2, x_max + 5)
     
         
-        else:
-            raise NameError("You must choose one of horizontal or vertical")
+    #     else:
+    #         raise NameError("You must choose one of horizontal or vertical")
         
-        ax.axis(axis)
+    #     ax.axis(axis)
     
-        rect = plt.Rectangle((x_min, y_min),
-                             x_max, y_max,
-                             facecolor=pitch_color,
-                             edgecolor="none",
-                             zorder=-2)
+    #     rect = plt.Rectangle((x_min, y_min),
+    #                          x_max, y_max,
+    #                          facecolor=pitch_color,
+    #                          edgecolor="none",
+    #                          zorder=-2)
     
-        ax.add_artist(rect)
+    #     ax.add_artist(rect)
     
-        x_conversion = x_max / 100
-        y_conversion = y_max / 100
+    #     x_conversion = x_max / 100
+    #     y_conversion = y_max / 100
     
-        pitch_x = [0,5.8,11.5,17,50,83,88.5,94.2,100] # x dimension markings
-        pitch_x = [x * x_conversion for x in pitch_x]
+    #     pitch_x = [0,5.8,11.5,17,50,83,88.5,94.2,100] # x dimension markings
+    #     pitch_x = [x * x_conversion for x in pitch_x]
     
-        pitch_y = [0, 21.1, 36.6, 50, 63.2, 78.9, 100] # y dimension markings
-        pitch_y = [x * y_conversion for x in pitch_y]
+    #     pitch_y = [0, 21.1, 36.6, 50, 63.2, 78.9, 100] # y dimension markings
+    #     pitch_y = [x * y_conversion for x in pitch_y]
     
-        goal_y = [45.2, 54.8] # goal posts
-        goal_y = [x * y_conversion for x in goal_y]
+    #     goal_y = [45.2, 54.8] # goal posts
+    #     goal_y = [x * y_conversion for x in goal_y]
     
-        # side and goal lines
-        lx1 = [x_min, x_max, x_max, x_min, x_min]
-        ly1 = [y_min, y_min, y_max, y_max, y_min]
+    #     # side and goal lines
+    #     lx1 = [x_min, x_max, x_max, x_min, x_min]
+    #     ly1 = [y_min, y_min, y_max, y_max, y_min]
     
-        # outer box
-        lx2 = [x_max, pitch_x[5], pitch_x[5], x_max]
-        ly2 = [pitch_y[1], pitch_y[1], pitch_y[5], pitch_y[5]]
+    #     # outer box
+    #     lx2 = [x_max, pitch_x[5], pitch_x[5], x_max]
+    #     ly2 = [pitch_y[1], pitch_y[1], pitch_y[5], pitch_y[5]]
     
-        lx3 = [0, pitch_x[3], pitch_x[3], 0]
-        ly3 = [pitch_y[1], pitch_y[1], pitch_y[5], pitch_y[5]]
+    #     lx3 = [0, pitch_x[3], pitch_x[3], 0]
+    #     ly3 = [pitch_y[1], pitch_y[1], pitch_y[5], pitch_y[5]]
     
-        # goals
-        lx4 = [x_max, x_max+2, x_max+2, x_max]
-        ly4 = [goal_y[0], goal_y[0], goal_y[1], goal_y[1]]
+    #     # goals
+    #     lx4 = [x_max, x_max+2, x_max+2, x_max]
+    #     ly4 = [goal_y[0], goal_y[0], goal_y[1], goal_y[1]]
     
-        lx5 = [0, -2, -2, 0]
-        ly5 = [goal_y[0], goal_y[0], goal_y[1], goal_y[1]]
+    #     lx5 = [0, -2, -2, 0]
+    #     ly5 = [goal_y[0], goal_y[0], goal_y[1], goal_y[1]]
     
-        # 6 yard box
-        lx6 = [x_max, pitch_x[7], pitch_x[7], x_max]
-        ly6 = [pitch_y[2],pitch_y[2], pitch_y[4], pitch_y[4]]
+    #     # 6 yard box
+    #     lx6 = [x_max, pitch_x[7], pitch_x[7], x_max]
+    #     ly6 = [pitch_y[2],pitch_y[2], pitch_y[4], pitch_y[4]]
     
-        lx7 = [0, pitch_x[1], pitch_x[1], 0]
-        ly7 = [pitch_y[2],pitch_y[2], pitch_y[4], pitch_y[4]]
-    
-    
-        # Halfline, penalty spots, and kickoff spot
-        lx8 = [pitch_x[4], pitch_x[4]]
-        ly8 = [0, y_max]
-    
-        lines = [
-            [lx1, ly1],
-            [lx2, ly2],
-            [lx3, ly3],
-            [lx4, ly4],
-            [lx5, ly5],
-            [lx6, ly6],
-            [lx7, ly7],
-            [lx8, ly8],
-            ]
-    
-        points = [
-            [pitch_x[6], pitch_y[3]],
-            [pitch_x[2], pitch_y[3]],
-            [pitch_x[4], pitch_y[3]]
-            ]
-    
-        circle_points = [pitch_x[4], pitch_y[3]]
-        arc_points1 = [pitch_x[6], pitch_y[3]]
-        arc_points2 = [pitch_x[2], pitch_y[3]]
+    #     lx7 = [0, pitch_x[1], pitch_x[1], 0]
+    #     ly7 = [pitch_y[2],pitch_y[2], pitch_y[4], pitch_y[4]]
     
     
-        for line in lines:
-            ax.plot(line[first], line[second],
-                    color=line_color,
-                    lw=line_thickness,
-                    zorder=-1)
+    #     # Halfline, penalty spots, and kickoff spot
+    #     lx8 = [pitch_x[4], pitch_x[4]]
+    #     ly8 = [0, y_max]
     
-        for point in points:
-            ax.scatter(point[first], point[second],
-                       color=line_color,
-                       s=point_size,
-                       zorder=-1)
+    #     lines = [
+    #         [lx1, ly1],
+    #         [lx2, ly2],
+    #         [lx3, ly3],
+    #         [lx4, ly4],
+    #         [lx5, ly5],
+    #         [lx6, ly6],
+    #         [lx7, ly7],
+    #         [lx8, ly8],
+    #         ]
     
-        circle = plt.Circle((circle_points[first], circle_points[second]),
-                            x_max * 0.088,
-                            lw=line_thickness,
-                            color=line_color,
-                            fill=False,
-                            zorder=-1)
+    #     points = [
+    #         [pitch_x[6], pitch_y[3]],
+    #         [pitch_x[2], pitch_y[3]],
+    #         [pitch_x[4], pitch_y[3]]
+    #         ]
     
-        ax.add_artist(circle)
+    #     circle_points = [pitch_x[4], pitch_y[3]]
+    #     arc_points1 = [pitch_x[6], pitch_y[3]]
+    #     arc_points2 = [pitch_x[2], pitch_y[3]]
     
-        arc1 = Arc((arc_points1[first], arc_points1[second]),
-                   height=x_max * 0.088 * 2,
-                   width=x_max * 0.088 * 2,
-                   angle=arc_angle,
-                   theta1=128.75,
-                   theta2=231.25,
-                   color=line_color,
-                   lw=line_thickness,
-                   zorder=-1)
     
-        ax.add_artist(arc1)
+    #     for line in lines:
+    #         ax.plot(line[first], line[second],
+    #                 color=line_color,
+    #                 lw=line_thickness,
+    #                 zorder=-1)
     
-        arc2 = Arc((arc_points2[first], arc_points2[second]),
-                   height=x_max * 0.088 * 2,
-                   width=x_max * 0.088 * 2,
-                   angle=arc_angle,
-                   theta1=308.75,
-                   theta2=51.25,
-                   color=line_color,
-                   lw=line_thickness,
-                   zorder=-1)
+    #     for point in points:
+    #         ax.scatter(point[first], point[second],
+    #                    color=line_color,
+    #                    s=point_size,
+    #                    zorder=-1)
     
-        ax.add_artist(arc2)
+    #     circle = plt.Circle((circle_points[first], circle_points[second]),
+    #                         x_max * 0.088,
+    #                         lw=line_thickness,
+    #                         color=line_color,
+    #                         fill=False,
+    #                         zorder=-1)
     
-        ax.set_aspect("equal")
+    #     ax.add_artist(circle)
     
-        return ax
-    df_h = pd.DataFrame(data['h'])
-    df_a = pd.DataFrame(data['a'])
-    df = pd.concat([df_h,df_a])
+    #     arc1 = Arc((arc_points1[first], arc_points1[second]),
+    #                height=x_max * 0.088 * 2,
+    #                width=x_max * 0.088 * 2,
+    #                angle=arc_angle,
+    #                theta1=128.75,
+    #                theta2=231.25,
+    #                color=line_color,
+    #                lw=line_thickness,
+    #                zorder=-1)
     
-    # Changing the data types 
-    df['xG'] = df['xG'].astype('float64')
-    df['X'] = df['X'].astype('float64')
-    df['Y'] = df['Y'].astype('float64')
+    #     ax.add_artist(arc1)
     
-    # Adjusting the measurements 
-    df['X'] = (df['X']/100)*105*100
-    df['Y'] = (df['Y']/100)*68*100
+    #     arc2 = Arc((arc_points2[first], arc_points2[second]),
+    #                height=x_max * 0.088 * 2,
+    #                width=x_max * 0.088 * 2,
+    #                angle=arc_angle,
+    #                theta1=308.75,
+    #                theta2=51.25,
+    #                color=line_color,
+    #                lw=line_thickness,
+    #                zorder=-1)
     
-    # Dividing the df between away and home again
-    df_h = pd.DataFrame(df[df['h_a']=='h'])
-    df_a = pd.DataFrame(df[df['h_a']=='a'])
+    #     ax.add_artist(arc2)
     
-    # xG for each team
-    # Sociedad
-    total_shots_h = df_h[df_h.columns[0]].count()
-    xGcum_h = np.round(max(np.cumsum(df_h['xG'])),3)
-    xG_per_shot_h = np.round(max(np.cumsum(df_h['xG']))/(df_h[df_h.columns[0]].count()),3)
-    goal_h = df_h[df_h['result']=='Goal']
-    goal_h = goal_h[goal_h.columns[0]].count()
-    h_team = df['h_team'].iloc[0]
+    #     ax.set_aspect("equal")
     
-    # Barcelona 
-    # xG for each team
-    total_shots_a = df_a[df_a.columns[0]].count().tolist()
-    xGcum_a = np.round(max(np.cumsum(df_a['xG'])),3).tolist()
-    xG_per_shot_a = np.round(max(np.cumsum(df_a['xG']))/(df_a[df_a.columns[0]].count()),3).tolist()
-    goal_a = df_a[df_a['result']=='Goal']
-    goal_a = goal_a[goal_a.columns[0]].count().tolist()
-    a_team = df['a_team'].iloc[0]
+    #     return ax
+    # df_h = pd.DataFrame(data['h'])
+    # df_a = pd.DataFrame(data['a'])
+    # df = pd.concat([df_h,df_a])
+    
+    # # Changing the data types 
+    # df['xG'] = df['xG'].astype('float64')
+    # df['X'] = df['X'].astype('float64')
+    # df['Y'] = df['Y'].astype('float64')
+    
+    # # Adjusting the measurements 
+    # df['X'] = (df['X']/100)*105*100
+    # df['Y'] = (df['Y']/100)*68*100
+    
+    # # Dividing the df between away and home again
+    # df_h = pd.DataFrame(df[df['h_a']=='h'])
+    # df_a = pd.DataFrame(df[df['h_a']=='a'])
+    
+    # # xG for each team
+    # # Sociedad
+    # total_shots_h = df_h[df_h.columns[0]].count()
+    # xGcum_h = np.round(max(np.cumsum(df_h['xG'])),3)
+    # xG_per_shot_h = np.round(max(np.cumsum(df_h['xG']))/(df_h[df_h.columns[0]].count()),3)
+    # goal_h = df_h[df_h['result']=='Goal']
+    # goal_h = goal_h[goal_h.columns[0]].count()
+    # h_team = df['h_team'].iloc[0]
+    
+    # # Barcelona 
+    # # xG for each team
+    # total_shots_a = df_a[df_a.columns[0]].count().tolist()
+    # xGcum_a = np.round(max(np.cumsum(df_a['xG'])),3).tolist()
+    # xG_per_shot_a = np.round(max(np.cumsum(df_a['xG']))/(df_a[df_a.columns[0]].count()),3).tolist()
+    # goal_a = df_a[df_a['result']=='Goal']
+    # goal_a = goal_a[goal_a.columns[0]].count().tolist()
+    # a_team = df['a_team'].iloc[0]
 
-    fig, ax = plt.subplots(figsize=(11, 7))
+    # fig, ax = plt.subplots(figsize=(11, 7))
     
-    # Drawing a full pitch horizontally
-    # Assuming football_pitch is a custom function for drawing the football pitch
-    football_pitch(orientation="horizontal", aspect="full", line_color="black", ax=ax)
+    # # Drawing a full pitch horizontally
+    # # Assuming football_pitch is a custom function for drawing the football pitch
+    # football_pitch(orientation="horizontal", aspect="full", line_color="black", ax=ax)
     
-    # Barcelona away team
-    z_a = df_a['xG'].tolist()
-    z1 = [1000 * i for i in z_a]  # Scale the "xG" values for plotting
-    colors = {'Goal': 'lightsteelblue', 'MissedShots': 'tomato', 'BlockedShot': 'gold', 'SavedShot': 'gray',
-              'ShotOnPost': 'peru'}
-    plt.scatter(y=df_a["Y"], x=df_a["X"], s=z1, marker='o', color=df_a['result'].map(colors), edgecolors="black")
-    plt.tight_layout()
+    # # Barcelona away team
+    # z_a = df_a['xG'].tolist()
+    # z1 = [1000 * i for i in z_a]  # Scale the "xG" values for plotting
+    # colors = {'Goal': 'lightsteelblue', 'MissedShots': 'tomato', 'BlockedShot': 'gold', 'SavedShot': 'gray',
+    #           'ShotOnPost': 'peru'}
+    # plt.scatter(y=df_a["Y"], x=df_a["X"], s=z1, marker='o', color=df_a['result'].map(colors), edgecolors="black")
+    # plt.tight_layout()
     
-    # Real Sociedad
-    z_h = df_h['xG'].tolist()
-    z2 = [1000 * i for i in z_h]  # Scale the "xG" values for plotting
-    colors = {'Goal': 'lightsteelblue', 'MissedShots': 'tomato', 'BlockedShot': 'gold', 'SavedShot': 'gray',
-              'ShotOnPost': 'peru'}
-    plt.scatter(y=65 - (df_h["Y"]), x=105 - (df_h["X"]), s=z2, marker='o', color=df_h['result'].map(colors),
-                edgecolors="black")
-    plt.tight_layout()
+    # # Real Sociedad
+    # z_h = df_h['xG'].tolist()
+    # z2 = [1000 * i for i in z_h]  # Scale the "xG" values for plotting
+    # colors = {'Goal': 'lightsteelblue', 'MissedShots': 'tomato', 'BlockedShot': 'gold', 'SavedShot': 'gray',
+    #           'ShotOnPost': 'peru'}
+    # plt.scatter(y=65 - (df_h["Y"]), x=105 - (df_h["X"]), s=z2, marker='o', color=df_h['result'].map(colors),
+    #             edgecolors="black")
+    # plt.tight_layout()
     
-    # Text
-    # Sociedad
-    st.text("<{}> | Goals: <{}> | Shots: <{}> | xG per Shot: <{}>".format(h_team, goal_h, total_shots_h, xG_per_shot_h))
+    # # Text
+    # # Sociedad
+    # st.text("<{}> | Goals: <{}> | Shots: <{}> | xG per Shot: <{}>".format(h_team, goal_h, total_shots_h, xG_per_shot_h))
     
-    # Barcelona
-    st.text("<{}> | Goals: <{}> | Shots: <{}> | xG per Shot: <{}>".format(a_team, goal_a, total_shots_a, xG_per_shot_a))
+    # # Barcelona
+    # st.text("<{}> | Goals: <{}> | Shots: <{}> | xG per Shot: <{}>".format(a_team, goal_a, total_shots_a, xG_per_shot_a))
     
-    # xG per team
-    st.text("{}: <{}> | {}: <{}>".format(h_team, xGcum_h, a_team, xGcum_a))
+    # # xG per team
+    # st.text("{}: <{}> | {}: <{}>".format(h_team, xGcum_h, a_team, xGcum_a))
     
-    # Scatter plot for goals, blocked shots, missed shots
-    plt.scatter(15, 65, s=180, edgecolor="black", color='lightsteelblue')
-    plt.scatter(35, 65, s=180, edgecolor="black", color='tomato')
-    plt.scatter(55, 65, s=180, edgecolor="black", color='gold')
-    plt.scatter(75, 65, s=180, edgecolor="black", color='gray')
-    plt.scatter(95, 65, s=180, edgecolor="black", color='peru')
-    xx = [10, 25, 45, 65, 85]
-    yy = [65, 65, 65, 65, 65]
-    xx_yy = ['Goal', 'MissedShots', 'BlockedShot', 'SavedShot', 'ShotOnPost']
-    for i in range(len(xx)):
-        plt.text(xx[i], yy[i], xx_yy[i], fontsize=12, color="black", ha="center", va="center", fontweight='bold')
+    # # Scatter plot for goals, blocked shots, missed shots
+    # plt.scatter(15, 65, s=180, edgecolor="black", color='lightsteelblue')
+    # plt.scatter(35, 65, s=180, edgecolor="black", color='tomato')
+    # plt.scatter(55, 65, s=180, edgecolor="black", color='gold')
+    # plt.scatter(75, 65, s=180, edgecolor="black", color='gray')
+    # plt.scatter(95, 65, s=180, edgecolor="black", color='peru')
+    # xx = [10, 25, 45, 65, 85]
+    # yy = [65, 65, 65, 65, 65]
+    # xx_yy = ['Goal', 'MissedShots', 'BlockedShot', 'SavedShot', 'ShotOnPost']
+    # for i in range(len(xx)):
+    #     plt.text(xx[i], yy[i], xx_yy[i], fontsize=12, color="black", ha="center", va="center", fontweight='bold')
     
-    # Display the plot in Streamlit
-    st.pyplot(fig)
+    # # Display the plot in Streamlit
+    # st.pyplot(fig)
