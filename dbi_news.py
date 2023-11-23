@@ -1400,6 +1400,7 @@ if page == "Badminton's Match":
     selected_player=st.selectbox('Select Player :', player_list['player_name'])
     selected_player2=player_list[player_list['player_name']==selected_player]
     player_id=selected_player2['id']
+    st.write(player_id)
     link = f"https://understat.com/player/{player_id}"
     res = requests.get(link)
     soup = BeautifulSoup(res.content,'lxml')
