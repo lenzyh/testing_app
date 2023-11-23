@@ -937,7 +937,7 @@ if page == "NBA Match":
     df_selected_team[selected_column2] = df_selected_team[selected_column].astype(float)
     # Sort the DataFrame by the selected column in descending order
     df_selected_team = df_selected_team.sort_values(by=selected_column2, ascending=False)
-    df_selected_team=df_selected_team.drop(columns=[selected_column2])
+    df_selected_team=df_selected_team.drop(columns=[selected_column2,'2PA','2P','2P%'])
     html = df_selected_team.style.hide(axis="index").to_html(escape=False)
     css = """
     <style>
