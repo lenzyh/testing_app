@@ -1127,7 +1127,7 @@ if page == "Badminton's Match":
         game_ids = pd.concat([game_ids,pd.DataFrame(data).sort_values('datetime')])
         # Changing the data type to int32
         game_ids = game_ids.astype({'id': 'int32'})
-    
+    game_ids['home'] = game_ids['h'].apply(lambda x: x.get('title') if pd.notnull(x) else None)
     game_ids['away'] = game_ids['a'].apply(lambda x: x.get('title') if pd.notnull(x) else None)
     game_ids['Match']= game_ids['home'] + ' -vs- ' + game_ids['away']
     game_ids['datetime'] = pd.to_datetime(game_ids['datetime']) + pd.Timedelta(hours=7)
