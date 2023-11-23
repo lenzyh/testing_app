@@ -33,6 +33,11 @@ from matplotlib.path import Path
 from matplotlib.patches import PathPatch
 from scipy.stats import norm, gaussian_kde, percentileofscore
 import numpy as np
+from mplsoccer import VerticalPitch, Pitch
+import matplotlib.pyplot as plt
+from highlight_text import fig_text
+from matplotlib.patches import Arc
+
 # Load data (name_df, match_df, headline)
 name_df = pd.read_excel('data/player.xlsx')
 name_df=name_df.sort_values(by='count', ascending=False)
@@ -993,4 +998,115 @@ if page == "Badminton's Match":
     filtered_df.loc[filtered_df['Rank'] == '3', 'Rank'] = "🥉 3" 
     # Display the DataFrame with added medals
     st.markdown(filtered_df.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
+    # List of leagues
+    leagues = ['EPL', 'la_liga', 'Bundesliga', 'Serie_A', 'Ligue_1']
+    
+    # Initialize an empty list to store dataframes for each league
+    dfs = []
+    
+    # Loop through each league
+    for league in leagues:
+        # Construct the link for the current league
+        link = f"https://understat.com/league/{league}"
+        
+        # Send a request to the website
+        res = requests.get(link)
+        
+        # Parse the HTML content
+        soup = BeautifulSoup(res.content, 'lxml')
+        
+        # Find all script tags
+        scripts = soup.find_all('script')
+        
+        # Get the players' stats 
+        strings = scripts[3].string 
+        
+        # Getting rid of unnecessary characters from JSON data
+        ind_start = strings.index("('") + 2 
+        ind_end = strings.index("')") 
+        json_data = strings[ind_start:ind_end] 
+        json_data = json_data.encode('utf8').decode('unicode_escape')
+        
+        # Load JSON data into a dictionary
+        player_data = json.loads(json_data)
+        
+        # Create a dataframe from the dictionary
+        df_player = pd.DataFrame(player_data)
+        
+        # Append the dataframe to the list
+        dfs.append(df_player)
 
+        player_list=df_player[['id','player_name','team_title']]
+    league_selected=st.selectbox('Select League', ['EPL','La Liga','Bundesliga','Serie A','Ligue 1'])
+    if league_selected=='La Liga':
+        league_selected='la_liga'
+    if league_selected=='Serie A':
+        league_selected='serie_a'
+    if league_selected=='Ligue 1':
+        league_selected='Ligue_1'
+    else:
+        league_selected
+    # Entering the league's  link
+    link = f"https://understat.com/league/{league_selected}"
+    res = requests.get(link)
+    soup = BeautifulSoup(res.content,'lxml')
+    scripts = soup.find_all('script')
+    # Get the table 
+    strings = scripts[2].string 
+    # Getting rid of unnecessary characters from json data
+    ind_start = strings.index("('")+2 
+    ind_end = strings.index("')") 
+    json_data = strings[ind_start:ind_end] 
+    json_data = json_data.encode('utf8').decode('unicode_escape')
+    league_data = json.loads(json_data)
+    
+    df_league = pd.DataFrame(league_data.values())
+    df_league = df_league.explode("history")
+    h = df_league.pop("history")
+    df_league = pd.concat([df_league.reset_index(drop=True), pd.DataFrame(h.tolist())], axis=1)
+    df_league = df_league.infer_objects()
+    table = df_league.groupby(['title']).agg({'wins': 'sum', 'draws': 'sum', 'loses': 'sum', 'scored': 'sum', 'missed': 'sum', 'pts': 'sum', 'xG': 'sum', 'xGA': 'sum', 'xpts': 'sum', 'npxG': 'sum', 'npxGA': 'sum', 'deep': 'sum', 'deep_allowed': 'sum'}).reset_index()
+    # Create a new DataFrame for matchups
+    matchup_data = []
+    
+    # Iterate over the rows of the original DataFrame
+    for index, row in table.iterrows():
+        home_team = row['title']
+        
+        # Exclude the row where the team is both home and away (if necessary)
+        away_teams = table[table['title'] != home_team]['title']
+        
+        for away_team in away_teams:
+            xG_home = row['xG']
+            opp_xG_away = table[table['title'] == away_team]['xG'].values[0]
+            
+            # Append the data to the matchups list
+            matchup_data.append({
+                'home_team': home_team,
+                'away_team': away_team,
+                'xG': xG_home,
+                'opp_xG': opp_xG_away
+            })
+    
+    # Create the matchups DataFrame
+    matchups_df = pd.DataFrame(matchup_data)
+    matchups_df['xG_diff']=matchups_df['xG']-matchups_df['opp_xG']
+    team_selected=st.selectbox('Select Team', matchups_df['home_team'].unique()[0])
+    matchups_df2=matchups_df[matchups_df['home_team']==team_selected]
+    # Calculate xG differential and set color based on the sign
+    matchups_df2['xG_diff_color'] = np.where(matchups_df2['xG_diff'] < 0, 'red', 'green')
+    
+    # Plot the xG differential for each team
+    plt.figure(figsize=(12, 8))
+    bars = plt.barh(matchups_df2['away_team'], matchups_df2['xG_diff'], color=matchups_df2['xG_diff_color'])
+    plt.ylabel('Opp Team',fontsize= 20,fontweight = "bold")
+    plt.grid(axis='x')
+    
+    plt.hlines(y=matchups_df2['away_team'], xmin=0, xmax=matchups_df2['xG_diff'], color='cyan', alpha=0.4, linewidth=8,label='Positive xG')
+    plt.hlines(y=matchups_df2['away_team'], xmin=0, xmax=matchups_df2['xG_diff'], color='red', alpha=0.4, linewidth=8,label='Negative xG')
+    # Display the plot
+    fig_text(0.08,1.03, s=f"{team_selected} 2023 Season xG Differential\n", fontsize = 25, fontweight = "light")
+    fig_text(0.08,0.97, s=" <Positive xG> vs <Negative xG>",highlight_textprops=[{"color":'cyan'}, {'color':"red"}], fontsize = 20, fontweight="light")
+    fig_text(0.45,0.01, s="xG Differential\n", fontsize = 20, fontweight = "bold", color = "black")
+    
+    plt.show()
