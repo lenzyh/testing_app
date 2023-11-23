@@ -388,7 +388,7 @@ if page == "Football Match":
     from datetime import date, timedelta
     
     # List of date offsets (-1 for yesterday, 0 for today, 1 for tomorrow)
-    date_offsets = [-1, 0, 1]
+    date_offsets = [-2,-1, 0, 1,2]
     
     data = []
     
