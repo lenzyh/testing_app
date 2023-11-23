@@ -1400,7 +1400,7 @@ if page == "Badminton's Match":
     selected_player=st.selectbox('Select Player :', player_list['player_name'])
     selected_player2=player_list[player_list['player_name']==selected_player]
     player_id=selected_player2['id'][0]
-    st.write(player_id)
+
     link = f"https://understat.com/player/{player_id}"
     res = requests.get(link)
     soup = BeautifulSoup(res.content,'lxml')
@@ -1413,7 +1413,11 @@ if page == "Badminton's Match":
     json_data = strings[ind_start:ind_end] 
     json_data = json_data.encode('utf8').decode('unicode_escape')
     data = json.loads(json_data)
-
+    shots = pd.DataFrame(data) # Aleksander Isak shot data
+    # Changing data type
+    shots['xG'] = shots['xG'].astype('float64')
+    shots['X'] = shots['X'].astype('float64')
+    shots['Y'] = shots['Y'].astype('float64')
     shots['X1'] = (shots['X']/100)*105*100
     shots['Y1'] = (shots['Y']/100)*68*100
     # Original X and Y
