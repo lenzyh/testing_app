@@ -1482,7 +1482,7 @@ if page == "NBA Match":
         return ax  
 
     # Plot the hexmap using Matplotlib and get the figure
-    fig, ax = plt.subplots(figsize=(12, 11))
+    fig, ax = plt.subplots(figsize=(8, 7))
     hexmap_chart(player_shotchart_df, league_avg, title=f"{player} Hex Chart 2023-24", ax=ax)
     draw_court(ax, color="blue", lw=2, outer_lines=False)
     player_id=player_shotchart_df['PLAYER_ID'].unique()[0]
