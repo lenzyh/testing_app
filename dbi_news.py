@@ -490,6 +490,32 @@ if page == "Football Match":
     standing=standing.sort_values(by=['pts','scored'],ascending=[False,False])
     st.subheader(f'Standing in {league_selected}')
     st.markdown(standing.style.hide(axis="index").to_html(), unsafe_allow_html=True)
+    # Construct the link for the current league
+    link = f"https://understat.com/league/{league_selected}"
+    
+    # Send a request to the website
+    res = requests.get(link)
+    
+    # Parse the HTML content
+    soup = BeautifulSoup(res.content, 'lxml')
+    
+    # Find all script tags
+    scripts = soup.find_all('script')
+    
+    # Get the players' stats 
+    strings = scripts[3].string 
+    
+    # Getting rid of unnecessary characters from JSON data
+    ind_start = strings.index("('") + 2 
+    ind_end = strings.index("')") 
+    json_data = strings[ind_start:ind_end] 
+    json_data = json_data.encode('utf8').decode('unicode_escape')
+    
+    # Load JSON data into a dictionary
+    player_data = json.loads(json_data)
+    
+    # Create a dataframe from the dictionary
+    df_player = pd.DataFrame(player_data)
     # Create a new DataFrame for matchups
     matchup_data = []
     
@@ -839,33 +865,6 @@ if page == "Football Match":
     st.pyplot(fig)
 
     st.subheader('Player Shooting Summary')
-    
-    # Construct the link for the current league
-    link = f"https://understat.com/league/{league_selected}"
-    
-    # Send a request to the website
-    res = requests.get(link)
-    
-    # Parse the HTML content
-    soup = BeautifulSoup(res.content, 'lxml')
-    
-    # Find all script tags
-    scripts = soup.find_all('script')
-    
-    # Get the players' stats 
-    strings = scripts[3].string 
-    
-    # Getting rid of unnecessary characters from JSON data
-    ind_start = strings.index("('") + 2 
-    ind_end = strings.index("')") 
-    json_data = strings[ind_start:ind_end] 
-    json_data = json_data.encode('utf8').decode('unicode_escape')
-    
-    # Load JSON data into a dictionary
-    player_data = json.loads(json_data)
-    
-    # Create a dataframe from the dictionary
-    df_player = pd.DataFrame(player_data)
 
     player_list=df_player[['id','player_name','team_title']]
     # Entering Player ID link
