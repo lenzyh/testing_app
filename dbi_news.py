@@ -870,7 +870,7 @@ if page == "Football Match":
     # Entering Player ID link
     player_list2=player_list[player_list['team_title']==team_selected]
     selected_player=st.selectbox('Select Player :', player_list2['player_name'])
-    selected_player2=player_list[player_list2['player_name']==selected_player]
+    selected_player2=player_list2[player_list2['player_name']==selected_player]
     player_id=selected_player2['id'][0]
 
     link = f"https://understat.com/player/{player_id}"
