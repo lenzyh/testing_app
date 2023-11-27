@@ -555,6 +555,7 @@ if page == "Football Match":
     matchups_df['xG_diff']=matchups_df['xG']-matchups_df['opp_xG']
     team_selected=st.selectbox('Select Team', matchups_df['home_team'].unique())
     roster=df_player[['team_title','player_name','position','games','shots','goals','npg','assists','key_passes','yellow_cards','red_cards','xG','xA']]
+    roster=roster[roster['team_title']==team_selected]
     roster['goals']=roster['goals'].astype('int')
     roster['xG']=roster['xG'].astype('float').round(2)
     roster['xA']=roster['xA'].astype('float').round(2)
