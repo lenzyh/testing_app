@@ -554,6 +554,13 @@ if page == "Football Match":
     matchups_df = pd.DataFrame(matchup_data)
     matchups_df['xG_diff']=matchups_df['xG']-matchups_df['opp_xG']
     team_selected=st.selectbox('Select Team', matchups_df['home_team'].unique())
+    roster=df_player[['team_title','player_name','position','games','shots','goals','npg','assists','key_passes','yellow_cards','red_cards','xG','xA']]
+    roster['goals']=roster['goals'].astype('int')
+    roster['xG']=roster['xG'].astype('float').round(2)
+    roster['xA']=roster['xA'].astype('float').round(2)
+    roster=roster.sort_values(by='goals',ascending=False)
+    st.subheader(f'Rosters of {team_selected}')
+    st.markdown(roster.style.hide(axis="index").to_html(), unsafe_allow_html=True)
     matchups_df2=matchups_df[matchups_df['home_team']==team_selected]
     # Calculate xG differential and set color based on the sign
     matchups_df2['xG_diff_color'] = np.where(matchups_df2['xG_diff'] < 0, 'red', 'green')
@@ -871,9 +878,9 @@ if page == "Football Match":
     st.subheader('Player Shooting Summary')
     
     # Entering Player ID link
-
-    selected_player=st.selectbox('Select Player :', player_list['player_name'])
-    selected_player2=player_list[player_list['player_name']==selected_player]
+    player_list2=player_list[player_list['team_title']==team_selected]
+    selected_player=st.selectbox('Select Player :', player_list2['player_name'])
+    selected_player2=player_list[player_list2['player_name']==selected_player]
     player_id=selected_player2['id'][0]
 
     link = f"https://understat.com/player/{player_id}"
