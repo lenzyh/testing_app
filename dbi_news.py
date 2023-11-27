@@ -463,45 +463,7 @@ if page == "Football Match":
     filtered_data = football[football["Tournament"].isin(selected_tournaments)]    
     st.subheader('Schedule')
     st.markdown(filtered_data.style.hide(axis="index").to_html(), unsafe_allow_html=True)
-    # List of leagues
-    leagues = ['EPL', 'la_liga', 'Bundesliga', 'Serie_A', 'Ligue_1']
-    
-    # Initialize an empty list to store dataframes for each league
-    dfs = []
-    
-    # Loop through each league
-    for league in leagues:
-        # Construct the link for the current league
-        link = f"https://understat.com/league/{league}"
-        
-        # Send a request to the website
-        res = requests.get(link)
-        
-        # Parse the HTML content
-        soup = BeautifulSoup(res.content, 'lxml')
-        
-        # Find all script tags
-        scripts = soup.find_all('script')
-        
-        # Get the players' stats 
-        strings = scripts[3].string 
-        
-        # Getting rid of unnecessary characters from JSON data
-        ind_start = strings.index("('") + 2 
-        ind_end = strings.index("')") 
-        json_data = strings[ind_start:ind_end] 
-        json_data = json_data.encode('utf8').decode('unicode_escape')
-        
-        # Load JSON data into a dictionary
-        player_data = json.loads(json_data)
-        
-        # Create a dataframe from the dictionary
-        df_player = pd.DataFrame(player_data)
-        
-        # Append the dataframe to the list
-        dfs.append(df_player)
 
-        player_list=df_player[['id','player_name','team_title']]
     league_selected=st.selectbox('Select League', ['EPL','la_liga','Bundesliga','serie_a','Ligue_1'])
     # Entering the league's  link
     link = f"https://understat.com/league/{league_selected}"
@@ -878,6 +840,34 @@ if page == "Football Match":
 
     st.subheader('Player Shooting Summary')
     
+    # Construct the link for the current league
+    link = f"https://understat.com/league/{league_selected}"
+    
+    # Send a request to the website
+    res = requests.get(link)
+    
+    # Parse the HTML content
+    soup = BeautifulSoup(res.content, 'lxml')
+    
+    # Find all script tags
+    scripts = soup.find_all('script')
+    
+    # Get the players' stats 
+    strings = scripts[3].string 
+    
+    # Getting rid of unnecessary characters from JSON data
+    ind_start = strings.index("('") + 2 
+    ind_end = strings.index("')") 
+    json_data = strings[ind_start:ind_end] 
+    json_data = json_data.encode('utf8').decode('unicode_escape')
+    
+    # Load JSON data into a dictionary
+    player_data = json.loads(json_data)
+    
+    # Create a dataframe from the dictionary
+    df_player = pd.DataFrame(player_data)
+
+    player_list=df_player[['id','player_name','team_title']]
     # Entering Player ID link
     player_list2=player_list[player_list['team_title']==team_selected]
     selected_player=st.selectbox('Select Player :', player_list2['player_name'])
