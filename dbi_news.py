@@ -98,7 +98,7 @@ if page == "Top Online Casinos":
     st.markdown(f'<img src="https://lenzyh.github.io/testing_app/data/1_TopCasino_TopicWordClouds.png" width="{1000}" height="{500}">', unsafe_allow_html=True)  
     
     components.iframe("https://lenzyh.github.io/testing_app/data/2_TopCasino_TopicWordScore.html",width=1000,height=700)
-    components.iframe("https://lenzyh.github.io/testing_app/data/3_TopCasino_TopicGrouping.html",width=1000,height=400)
+    #components.iframe("https://lenzyh.github.io/testing_app/data/3_TopCasino_TopicGrouping.html",width=1000,height=400)
     components.iframe("https://lenzyh.github.io/testing_app/data/4_TopCasino_InterDisMap.html",width=1000,height=700)
     components.iframe("https://lenzyh.github.io/testing_app/data/5_TopCasino_DetailedDocMap.html",width=1400,height=700)
 
@@ -122,7 +122,7 @@ if page == "Industry's Trend":
         st.markdown(f'<img src="https://lenzyh.github.io/testing_app/data/1_ComplaintTrends_TopicWordClouds.png" width="{1000}" height="{500}">', unsafe_allow_html=True)
         
         components.iframe("https://lenzyh.github.io/testing_app/data/2_ComplaintTrends_TopicWordScore.html",width=1000,height=700)
-        components.iframe("https://lenzyh.github.io/testing_app/data/3_ComplaintTrends_TopicGrouping.html",width=1000,height=400)
+        #components.iframe("https://lenzyh.github.io/testing_app/data/3_ComplaintTrends_TopicGrouping.html",width=1000,height=400)
         components.iframe("https://lenzyh.github.io/testing_app/data/4_ComplaintTrends_InterDisMap.html",width=1000,height=700)
         components.iframe("https://lenzyh.github.io/testing_app/data/5_ComplaintTrends_DetailedDocMap.html",width=1400,height=700)
     if selection == "Bonus":
@@ -130,7 +130,7 @@ if page == "Industry's Trend":
         st.markdown(f'<img src="https://lenzyh.github.io/testing_app/data/1_BonusTrends_TopicWordClouds.png" width="{1000}" height="{500}">', unsafe_allow_html=True)
         
         components.iframe("https://lenzyh.github.io/testing_app/data/2_BonusTrends_TopicWordScore.html",width=1000,height=700)
-        components.iframe("https://lenzyh.github.io/testing_app/data/3_BonusTrends_TopicGrouping.html",width=1000,height=400)
+        #components.iframe("https://lenzyh.github.io/testing_app/data/3_BonusTrends_TopicGrouping.html",width=1000,height=400)
         components.iframe("https://lenzyh.github.io/testing_app/data/4_BonusTrends_InterDisMap.html",width=1000,height=700)
         components.iframe("https://lenzyh.github.io/testing_app/data/5_BonusTrends_DetailedDocMap.html",width=1400,height=700)
 if page == "Crypto's Trend":
@@ -367,7 +367,7 @@ if page == "Sport's Trend":
     # Display the Word Cloud image
     st.image(wordcloud_image, use_column_width=True, caption="Player Word Cloud")
     st.subheader("Topic's Modelling")
-    components.iframe("https://lenzyh.github.io/testing_app/data/TopicGrouping.html",width=1200,height=1600)
+    #components.iframe("https://lenzyh.github.io/testing_app/data/TopicGrouping.html",width=1200,height=1600)
     components.iframe("https://lenzyh.github.io/testing_app/data/DetailedDocMap.html",width=1200,height=800)
     components.iframe("https://lenzyh.github.io/testing_app/data/sport_topic.html",width=1000,height=600)
     components.iframe("https://lenzyh.github.io/testing_app/data/Intertopic.html",width=1000,height=800)
