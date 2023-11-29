@@ -83,7 +83,7 @@ if page == "Top Online Casinos":
     # Display the top 20 rows in the sidebar
     for index, row in topcasino_headline.head(20).iterrows():
         st.sidebar.write(f"{index + 1}. {row['Casino']}")
-    st.writer('source: CasinoGuru'
+    st.writer('source: CasinoGuru')
     st.subheader('Key Words Analysis')
 
     st.subheader("Most Mentioned Games in Hot Casinos")
