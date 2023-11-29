@@ -83,6 +83,7 @@ if page == "Top Online Casinos":
     # Display the top 20 rows in the sidebar
     for index, row in topcasino_headline.head(20).iterrows():
         st.sidebar.write(f"{index + 1}. {row['Casino']}")
+    st.writer('source: CasinoGuru'
     st.subheader('Key Words Analysis')
 
     st.subheader("Most Mentioned Games in Hot Casinos")
@@ -105,7 +106,7 @@ if page == "Top Online Casinos":
 if page == "Industry's Trend":
 # Create a sidebar
     st.sidebar.title("News Headlines :newspaper:")
-
+    st.write('source: CasinoGuru')
     # Create a dropdown for selecting a category
     selected_category = st.sidebar.selectbox("Select a Category", industry_headline["Category"].unique())
 
@@ -134,6 +135,7 @@ if page == "Industry's Trend":
         components.iframe("https://lenzyh.github.io/testing_app/data/4_BonusTrends_InterDisMap.html",width=1000,height=700)
         components.iframe("https://lenzyh.github.io/testing_app/data/5_BonusTrends_DetailedDocMap.html",width=1400,height=700)
 if page == "Crypto's Trend":
+    st.write('source: Crypto.com')
     # Sidebar - Headlines
     st.sidebar.title("News Headlines :newspaper:")
     url_headline = 'https://coinmarketcap.com/headlines/news/'
@@ -384,6 +386,7 @@ if page == "Football Match":
     import pandas as pd
     import requests
     import re
+    st.source('understat')
     st.header("Football Match")
     from datetime import date, timedelta
     
@@ -989,6 +992,7 @@ if page == "Football Match":
 
 
 if page == "NBA Match":
+    st.write('source: NBA official, BasketballReference')
     # displaying image function
     def img_to_bytes(img_path):
         img_bytes = Path(img_path).read_bytes()
@@ -1543,7 +1547,7 @@ if page == "NBA Match":
     st.markdown(filedownload(df_selected_team), unsafe_allow_html=True)
 if page == "Badminton's Match":
     import glob
-
+    st.write('source: BWF')
     # Specify the path where your CSV files are located
     files = glob.glob('data/rankings_*.csv')
     
