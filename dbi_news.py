@@ -342,6 +342,7 @@ if page == "Crypto's Trend":
     st.markdown(reddit2.to_html(escape=False), unsafe_allow_html=True)
 if page == "Sport's Trend":
     # Sidebar - Headlines
+    st.write('source: GoogleNews')
     st.sidebar.title("News Headlines :newspaper:")
     for index, title in enumerate(headline['title'], start=1):
         st.sidebar.write(f"{index}. {title}")
