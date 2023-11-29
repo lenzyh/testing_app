@@ -387,7 +387,7 @@ if page == "Football Match":
     import pandas as pd
     import requests
     import re
-    st.source('understat')
+    stwrite('source: understat')
     st.header("Football Match")
     from datetime import date, timedelta
     
