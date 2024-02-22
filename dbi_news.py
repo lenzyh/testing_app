@@ -1080,7 +1080,7 @@ if page == "NBA Match":
     st.subheader(f"Schedule")
     year=(date.today()+ timedelta(days=365)).strftime('%Y')
     month=date.today().strftime('%B').lower()
-    url_schedule = f'https://www.basketball-reference.com/leagues/NBA_{year}_games-{month}.html#schedule'
+    url_schedule = f'https://www.basketball-reference.com/leagues/NBA_{year}_games.html#schedule'
 
     response_schedule = requests.get(url_schedule)
 
