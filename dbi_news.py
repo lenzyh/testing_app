@@ -74,7 +74,8 @@ date_today = date.today().strftime("%Y-%m-%d")
 st.sidebar.write(f"Today's Date: {date_today}")
 
 # Add a submenu for navigation
-page = st.sidebar.selectbox("Go to", ["Top Online Casinos", "Industry's Trend","Crypto's Trend","Sport's Trend", "NBA Match", "Football Match","Badminton's Match"])
+#page = st.sidebar.selectbox("Go to", ["Top Online Casinos", "Industry's Trend","Crypto's Trend","Sport's Trend", "NBA Match", "Football Match","Badminton's Match"])
+page = st.sidebar.selectbox("Go to", ["Crypto's Trend","Sport's Trend", "NBA Match", "Football Match","Badminton's Match"])
 
 if page == "Top Online Casinos":
 # Create a sidebar
