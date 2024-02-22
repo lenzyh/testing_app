@@ -1078,7 +1078,7 @@ if page == "NBA Match":
     st.markdown(e_df.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
     # Create hyperlinks for the Home Team and Away Team columns
     st.subheader(f"Schedule")
-    year=(date.today()+ timedelta(days=365)).strftime('%Y')
+    year=date.today().strftime('%Y')
     month=date.today().strftime('%B').lower()
     url_schedule = f'https://www.basketball-reference.com/leagues/NBA_{year}_games.html#schedule'
 
