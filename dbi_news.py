@@ -344,9 +344,9 @@ if page == "Crypto's Trend":
 if page == "Sport's Trend":
     # Sidebar - Headlines
     st.write('source: GoogleNews')
-    st.sidebar.title("News Headlines :newspaper:")
-    for index, title in enumerate(headline['title'], start=1):
-        st.sidebar.write(f"{index}. {title}")
+    #st.sidebar.title("News Headlines :newspaper:")
+    #for index, title in enumerate(headline['title'], start=1):
+    #    st.sidebar.write(f"{index}. {title}")
     st.subheader("Player Of The Day :sports_medal:")
 
     # Render player name as clickable Markdown text
@@ -1188,9 +1188,9 @@ if page == "NBA Match":
     st.markdown(basketball.style.hide(axis="index").to_html(escape=False), unsafe_allow_html=True)
 
     # Add a section for NBA headlines in the sidebar
-    st.sidebar.title("NBA's Headlines")
-    for index, title in enumerate(headlinenba['title'], start=1):
-        st.sidebar.write(f"{index}. {title}")
+    #st.sidebar.title("NBA's Headlines")
+    #for index, title in enumerate(headlinenba['title'], start=1):
+    #    st.sidebar.write(f"{index}. {title}")
 
     # Function to fetch and display NBA scoreboard as a table
     def display_nba_scoreboard():
