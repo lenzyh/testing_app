@@ -69,7 +69,7 @@ def get_data(url):
     return r.text
 
 # Title and Date
-st.title("DBI News")
+st.title("Scraping Project")
 date_today = date.today().strftime("%Y-%m-%d")
 st.sidebar.write(f"Today's Date: {date_today}")
 
